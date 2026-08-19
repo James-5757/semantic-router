@@ -1,0 +1,651 @@
+﻿version: v0.3
+listeners:
+    - name: http-8899
+      address: 0.0.0.0
+      port: 8899
+      timeout: 300s
+providers:
+    defaults:
+        default_model: qwen/qwen3.5-rocm
+    models:
+        - name: qwen/qwen3.5-rocm
+          provider_model_id: qwen/qwen3.5-rocm
+          backend_refs:
+            - name: primary
+              endpoint: vllm:8000
+              protocol: http
+              weight: 100
+        - name: DeepSeek-V4-flash-gz
+          provider_model_id: GLM-4.5-Air
+          backend_refs:
+            - name: endpoint-1
+              endpoint: 59.37.137.190:38080
+              protocol: http
+              weight: 100
+              base_url: http://59.37.137.190:38080/v1
+              provider: openai
+              auth_header: Authorization
+              auth_prefix: Bearer
+              chat_path: /chat/completions
+              api_key: sk-df1bc672071b03358cd87b888058357d6f946311d49a3496557df4e4457fb73c
+          pricing:
+            currency: USD
+          api_format: openai
+routing:
+    modelCards:
+        - name: qwen/qwen3.5-rocm
+          modality: text
+        - name: DeepSeek-V4-flash-gz
+          modality: text
+    signals:
+        keywords:
+            - name: smoke_route_token
+              operator: OR
+              keywords:
+                - vllm smoke route token 92741
+              case_sensitive: false
+              method: bm25
+              bm25_threshold: 0.1
+        embeddings:
+            - name: semantic_code
+              threshold: 0.72
+              candidates:
+                - Write a Python function
+                - Implement an API endpoint
+                - Debug this code
+                - Build a backend service
+                - Create a REST API
+                - Implement database query logic
+                - Write a sorting algorithm
+                - Build a web scraper
+                - Create a user login interface
+                - Write unit tests for this function
+                - 用Python写一个函数
+                - 实现一个用户登录接口
+                - 修复这段代码
+                - 编写一个可运行的程序
+                - 设计REST API
+                - 实现数据库查询逻辑
+                - 写一个排序算法
+                - 创建一个网页爬虫
+                - 帮我调试这段程序
+                - 实现用户认证功能
+                - 写一个排序程序
+                - 用代码实现这个功能
+                - 帮我写个接口
+                - 开发一个后端服务
+                - 实现文件上传功能
+              aggregation_method: max
+            - name: semantic_data_analysis
+              threshold: 0.7
+              candidates:
+                - Analyze this dataset
+                - Generate a trend chart from CSV
+                - Calculate statistics from data
+                - Create a visualization
+                - Build a dashboard
+                - Analyze sales trends
+                - Generate insights from Excel
+                - Create a bar chart
+                - Calculate growth rate
+                - Process this data file
+                - 分析这个数据集
+                - 根据CSV生成趋势图
+                - 计算统计数据
+                - 创建一个可视化图表
+                - 构建数据仪表板
+                - 分析销售趋势
+                - 从Excel生成洞察
+                - 创建柱状图
+                - 计算增长率
+                - 处理这个数据文件
+                - 分析用户行为数据
+                - 生成数据报告
+                - 统计这些数据
+                - 创建一个折线图
+                - 分析这份报表
+              aggregation_method: max
+            - name: semantic_document
+              threshold: 0.7
+              candidates:
+                - Summarize this document
+                - Translate this article
+                - Write a work summary
+                - Create a report
+                - Edit this paper
+                - Summarize the PDF
+                - Write a business proposal
+                - Create a user manual
+                - Proofread this document
+                - Generate a summary
+                - 总结这篇文档
+                - 翻译这篇英文文章
+                - 写一篇工作总结
+                - 创建一份报告
+                - 编辑这篇论文
+                - 总结PDF内容
+                - 写一份商业提案
+                - 创建用户手册
+                - 校对这份文档
+                - 生成摘要
+                - 帮我总结一下
+                - 提取文档要点
+                - 写一份说明书
+                - 整理这份资料
+                - 概括这篇文章
+              aggregation_method: max
+            - name: semantic_vision_understanding
+              threshold: 0.68
+              candidates:
+                - Analyze this image
+                - Describe what's in this picture
+                - What objects are in this photo
+                - Identify the elements in this image
+                - Explain this diagram
+                - What does this chart show
+                - Detect faces in this image
+                - Read the text in this image
+                - Analyze the content of this photo
+                - What is in this screenshot
+                - 分析这张图片
+                - 描述这张照片里的内容
+                - 这张图片里有什么物体
+                - 识别这张图片中的元素
+                - 解释这张图表
+                - 这个图表显示了什么
+                - 检测这张图片中的人脸
+                - 读取这张图片中的文字
+                - 分析这张照片的内容
+                - 这张截图里有什么
+                - 看看这张图片里有什么
+                - 分析图片中的物体
+                - 描述一下这张图
+                - 这张照片是什么内容
+                - 识别图片中的文字
+              aggregation_method: max
+            - name: semantic_image_generation
+              threshold: 0.68
+              candidates:
+                - Generate an image
+                - Create a picture of
+                - Draw a illustration
+                - Make an image showing
+                - Generate a city poster
+                - Create a logo design
+                - Generate a landscape photo
+                - Create an avatar
+                - Design a banner
+                - Generate a fantasy scene
+                - 生成一张图片
+                - 创建一张...的图片
+                - 画一个插画
+                - 生成一张未来城市海报
+                - 创建一个标志设计
+                - 生成一张风景照片
+                - 创建一个头像
+                - 设计一个横幅
+                - 生成一个奇幻场景
+                - 帮我画一幅画
+                - 生成一张猫咪的图片
+                - 创作一幅海报
+                - 生成一张艺术图片
+                - 创建一张封面图
+                - 设计一个图标
+              aggregation_method: max
+            - name: semantic_simple_chat
+              threshold: 0.65
+              candidates:
+                - Recommend some restaurants
+                - What songs should I study to
+                - Tell me the news today
+                - What's the weather like
+                - Can you help me
+                - I need some advice
+                - What do you think about
+                - Chat with me
+                - Tell me a joke
+                - What is your opinion
+                - 推荐几家餐厅
+                - 给我推荐几首学习的歌
+                - 今天有什么新闻
+                - 今天天气怎么样
+                - 能帮我个忙吗
+                - 我需要一些建议
+                - 你觉得...怎么样
+                - 和我聊聊天
+                - 给我讲个笑话
+                - 你的看法是什么
+                - 给歌曲排个名
+                - 解释PDF是什么意思
+                - 推荐一些电影
+                - 帮我选一个
+                - 和我聊一聊
+              aggregation_method: max
+            - name: semantic_general
+              threshold: 0.6
+              candidates:
+                - Hello how are you
+                - Thank you
+                - Goodbye
+                - What is the time
+                - Help me please
+                - I have a question
+                - Can you explain
+                - What does this mean
+                - Tell me about
+                - I need information
+                - 你好
+                - 谢谢
+                - 再见
+                - 现在几点了
+                - 请帮帮我
+                - 我有一个问题
+                - 你能解释一下吗
+                - 这是什么意思
+                - 告诉我关于
+                - 我需要一些信息
+                - 你好啊
+                - 最近怎么样
+                - 帮我查一下
+                - 我想问一下
+                - 有什么可以帮你的
+              aggregation_method: max
+    decisions:
+        - name: route_smoke
+          description: Smoke test decision
+          priority: 999
+          rules:
+            operator: AND
+            conditions:
+                - type: keyword
+                  name: smoke_route_token
+          modelRefs:
+            - model: DeepSeek-V4-flash-gz
+              use_reasoning: false
+        - name: default-route
+          description: Generated during setup to route all requests to the default model.
+          priority: 1
+          rules:
+            operator: AND
+          modelRefs:
+            - model: DeepSeek-V4-flash-gz
+              use_reasoning: false
+        - name: route_general
+          description: Route to code model when semantic_general signal is matched
+          priority: 100
+          rules:
+            operator: AND
+            conditions:
+                - type: embedding
+                  name: semantic_general
+          modelRefs:
+            - model: DeepSeek-V4-flash-gz
+              use_reasoning: false
+        - name: route_simple_chat
+          description: Route to code model when semantic_simple_chat signal is matched
+          priority: 150
+          rules:
+            operator: AND
+            conditions:
+                - type: embedding
+                  name: semantic_simple_chat
+          modelRefs:
+            - model: DeepSeek-V4-flash-gz
+              use_reasoning: false
+        - name: route_code
+          description: Route to code model when semantic_code signal is matched
+          priority: 200
+          rules:
+            operator: AND
+            conditions:
+                - type: embedding
+                  name: semantic_code
+          modelRefs:
+            - model: DeepSeek-V4-flash-gz
+              use_reasoning: false
+        - name: route_data_analysis
+          description: Route to code model when semantic_data_analysis signal is matched
+          priority: 190
+          rules:
+            operator: AND
+            conditions:
+                - type: embedding
+                  name: semantic_data_analysis
+          modelRefs:
+            - model: DeepSeek-V4-flash-gz
+              use_reasoning: false
+        - name: route_document
+          description: Route to code model when semantic_document signal is matched
+          priority: 180
+          rules:
+            operator: AND
+            conditions:
+                - type: embedding
+                  name: semantic_document
+          modelRefs:
+            - model: DeepSeek-V4-flash-gz
+              use_reasoning: false
+        - name: route_vision_understanding
+          description: Route to code model when semantic_vision_understanding signal is matched
+          priority: 170
+          rules:
+            operator: AND
+            conditions:
+                - type: embedding
+                  name: semantic_vision_understanding
+          modelRefs:
+            - model: DeepSeek-V4-flash-gz
+              use_reasoning: false
+        - name: route_image_generation
+          description: Route to code model when semantic_image_generation signal is matched
+          priority: 160
+          rules:
+            operator: AND
+            conditions:
+                - type: embedding
+                  name: semantic_image_generation
+          modelRefs:
+            - model: DeepSeek-V4-flash-gz
+              use_reasoning: false
+global:
+    router:
+        config_source: file
+        auto_model_name: MoM
+        include_config_models_in_list: false
+        clear_route_cache: true
+        streamed_body:
+            enabled: false
+        skip_processing:
+            enabled: false
+        model_selection:
+            method: knn
+            enabled: true
+            router_dc:
+                temperature: 0.07
+                dimension_size: 768
+                min_similarity: 0.3
+                use_query_contrastive: true
+                use_model_contrastive: true
+                require_descriptions: false
+                use_capabilities: true
+            hybrid:
+                experience_weight: 0.3
+                router_dc_weight: 0.3
+                automix_weight: 0.2
+                cost_weight: 0.2
+                quality_gap_threshold: 0.1
+                normalize_scores: true
+    services:
+        api:
+            batch_classification: {}
+        response_api:
+            enabled: true
+            store_backend: redis
+            ttl_seconds: 86400
+            max_responses: 1000
+        observability:
+            tracing:
+                enabled: true
+                provider: opentelemetry
+                exporter:
+                    type: otlp
+                    endpoint: vllm-sr-jaeger:4317
+                    insecure: true
+                sampling:
+                    type: always_on
+                    rate: 1
+                resource:
+                    service_name: vllm-sr
+                    service_version: v0.3.0
+                    deployment_environment: development
+            metrics:
+                enabled: true
+                windowed_metrics:
+                    enabled: false
+                    model_metrics: false
+                    queue_depth_estimation: false
+        authz: {}
+        ratelimit: {}
+        management_api:
+            bind_address: 127.0.0.1
+            port: 8080
+            auth:
+                mode: disabled
+                roles:
+                    admin:
+                        - '*'
+                    operator:
+                        - health.read
+                        - ready.read
+                        - docs.read
+                        - metrics.read
+                        - classify.invoke
+                        - config.read
+                        - config.write
+                        - learning.ingest
+                        - data.read
+                        - data.write
+                    viewer:
+                        - health.read
+                        - ready.read
+                        - docs.read
+                        - metrics.read
+                        - classify.invoke
+                        - config.read
+                        - data.read
+        router_replay:
+            enabled: true
+            store_backend: postgres
+            ttl_seconds: 2592000
+        startup_status:
+            store_backend: file
+    stores:
+        semantic_cache:
+            backend_type: memory
+            enabled: true
+            max_entries: 1000
+            ttl_seconds: 3600
+            eviction_policy: fifo
+        memory:
+            milvus:
+                address: ""
+                collection: agentic_memory
+                dimension: 384
+            extraction_batch_size: 10
+            default_retrieval_limit: 5
+            default_similarity_threshold: 0.7
+    integrations:
+        tools:
+            enabled: false
+            top_k: 3
+            tools_db_path: config/tools_db.json
+            fallback_to_empty: true
+        looper:
+            endpoint: http://localhost:8899/v1/chat/completions
+            timeout_seconds: 1200
+            flow:
+                state:
+                    store_backend: file
+                    ttl_seconds: 1800
+    model_catalog:
+        embeddings:
+            semantic:
+                qwen3_model_path: ""
+                gemma_model_path: ""
+                mmbert_model_path: models/mmbert-embed-32k-2d-matryoshka
+                bert_model_path: ""
+                use_cpu: true
+                embedding_config:
+                    model_type: mmbert
+                    preload_embeddings: true
+                    target_dimension: 768
+                    target_layer: 22
+                    enable_soft_matching: true
+                    top_k: 1
+                    min_score_threshold: 0.5
+        system:
+            prompt_guard: models/mmbert32k-jailbreak-detector-merged
+            domain_classifier: models/mmbert32k-intent-classifier-merged
+            pii_classifier: models/mmbert32k-pii-detector-merged
+            fact_check_classifier: models/mmbert32k-factcheck-classifier-merged
+            hallucination_detector: models/mom-halugate-detector
+            hallucination_explainer: models/mom-halugate-explainer
+            feedback_detector: models/mmbert32k-feedback-detector-merged
+        kbs:
+            - name: privacy_kb
+              source:
+                path: knowledge_bases/privacy/
+                manifest: labels.json
+              threshold: 0.55
+              label_thresholds:
+                prompt_injection: 0.7
+              groups:
+                frontier_reasoning:
+                    - architecture_analysis
+                    - root_cause_analysis
+                    - multi_step_tradeoffs
+                local_standard:
+                    - generic_coding
+                    - simple_task
+                    - general_knowledge
+                privacy_policy:
+                    - proprietary_code
+                    - internal_document
+                    - pii
+                    - business_strategy
+                    - trade_secret_ip
+                    - operational_infrastructure
+                    - locality_directive
+                    - customer_data
+                private:
+                    - prompt_injection
+                    - credential_exfiltration
+                    - jailbreak_role
+                    - system_prompt_extraction
+                    - proprietary_code
+                    - internal_document
+                    - pii
+                    - business_strategy
+                    - trade_secret_ip
+                    - operational_infrastructure
+                    - locality_directive
+                    - customer_data
+                public:
+                    - architecture_analysis
+                    - root_cause_analysis
+                    - multi_step_tradeoffs
+                    - generic_coding
+                    - simple_task
+                    - general_knowledge
+                security_containment:
+                    - prompt_injection
+                    - credential_exfiltration
+                    - jailbreak_role
+                    - system_prompt_extraction
+              metrics:
+                - name: private_vs_public
+                  type: group_margin
+                  positive_group: private
+                  negative_group: public
+            - name: mmlu_kb
+              source:
+                path: knowledge_bases/mmlu/
+                manifest: labels.json
+              threshold: 0.25
+              groups:
+                escalate:
+                    - biology
+                    - business
+                    - computer science
+                    - economics
+                    - history
+                    - math
+                    - other
+                    - philosophy
+                    - psychology
+                keep:
+                    - chemistry
+                    - engineering
+                    - health
+                    - law
+                    - physics
+              metrics:
+                - name: escalate_vs_keep
+                  type: group_margin
+                  positive_group: escalate
+                  negative_group: keep
+        modules:
+            prompt_compression:
+                enabled: false
+                max_tokens: 0
+            prompt_guard:
+                enabled: true
+                model_id: ""
+                threshold: 0.7
+                use_cpu: true
+                use_modernbert: false
+                use_mmbert_32k: true
+                jailbreak_mapping_path: models/mmbert32k-jailbreak-detector-merged/jailbreak_type_mapping.json
+                model_ref: prompt_guard
+            classifier:
+                domain:
+                    model_id: ""
+                    threshold: 0.5
+                    use_cpu: true
+                    use_modernbert: false
+                    use_mmbert_32k: true
+                    category_mapping_path: models/mmbert32k-intent-classifier-merged/category_mapping.json
+                    model_ref: domain_classifier
+                mcp:
+                    enabled: false
+                    transport_type: ""
+                    threshold: 0
+                pii:
+                    model_id: ""
+                    threshold: 0.9
+                    use_cpu: true
+                    use_mmbert_32k: true
+                    pii_mapping_path: models/mmbert32k-pii-detector-merged/pii_type_mapping.json
+                    model_ref: pii_classifier
+                preference:
+                    use_contrastive: true
+            complexity:
+                prototype_scoring:
+                    enabled: true
+                    cluster_similarity_threshold: 0.9
+                    max_prototypes: 8
+                    best_weight: 0.75
+                    top_m: 2
+            hallucination_mitigation:
+                fact_check:
+                    model_id: ""
+                    threshold: 0.6
+                    use_cpu: true
+                    use_mmbert_32k: true
+                    model_ref: fact_check_classifier
+                detector:
+                    model_id: ""
+                    threshold: 0.8
+                    use_cpu: true
+                    min_span_length: 2
+                    min_span_confidence: 0.6
+                    context_window_size: 50
+                    enable_nli_filtering: true
+                    nli_entailment_threshold: 0.75
+                    model_ref: hallucination_detector
+                explainer:
+                    model_id: ""
+                    threshold: 0.9
+                    use_cpu: true
+                    model_ref: hallucination_explainer
+            feedback_detector:
+                enabled: true
+                model_id: ""
+                threshold: 0.7
+                use_cpu: true
+                use_modernbert: false
+                use_mmbert_32k: true
+                feedback_mapping_path: ""
+                model_ref: feedback_detector
+            modality_detector:
+                enabled: false

@@ -1,0 +1,658 @@
+version: v0.3-optimized
+listeners:
+- name: http-8899
+  address: 0.0.0.0
+  port: 8899
+  timeout: 300s
+providers:
+  defaults:
+    default_model: qwen/qwen3.5-rocm
+  models:
+  - name: qwen/qwen3.5-rocm
+    provider_model_id: qwen/qwen3.5-rocm
+    backend_refs:
+    - name: primary
+      endpoint: vllm:8000
+      protocol: http
+      weight: 100
+  - name: DeepSeek-V4-flash-gz
+    provider_model_id: GLM-4.5-Air
+    backend_refs:
+    - name: endpoint-1
+      endpoint: 59.37.137.190:38080
+      protocol: http
+      weight: 100
+      base_url: http://59.37.137.190:38080/v1
+      provider: openai
+      auth_header: Authorization
+      auth_prefix: Bearer
+      chat_path: /chat/completions
+      api_key: sk-df1bc672071b03358cd87b888058357d6f946311d49a3496557df4e4457fb73c
+    pricing:
+      currency: USD
+    api_format: openai
+routing:
+  modelCards:
+  - name: qwen/qwen3.5-rocm
+    modality: text
+  - name: DeepSeek-V4-flash-gz
+    modality: text
+  signals:
+    keywords:
+    - name: smoke_route_token
+      operator: OR
+      keywords:
+      - vllm smoke route token 92741
+      case_sensitive: false
+      method: bm25
+      bm25_threshold: 0.1
+    embeddings:
+    - name: semantic_code
+      threshold: 0.5
+      candidates:
+      - Write a Python function to merge two sorted lists
+      - Implement a REST API endpoint for user registration
+      - Build a web scraper to extract product prices
+      - Create a database migration script in SQL
+      - Debug this segmentation fault in C++ code
+      - 能帮我写个批量处理图片的脚本吗
+      - 这段代码为什么会无限循环，帮我看看
+      - 我想要一个能自动发邮件的程序
+      - 帮我把这个Excel处理逻辑写成Python代码
+      - 能不能给我一个解析JSON的代码示例
+      - 用Python实现二叉树的中序遍历
+      - 在Java中如何实现线程安全的计数器
+      - 帮我写一个前端表单验证函数
+      - 用SQL查出每个部门工资最高的员工
+      - 实现一个缓存装饰器支持TTL过期
+      - 分析这些代码的时间复杂度并给出优化建议
+      - 这段代码的性能瓶颈在哪里帮我分析
+      - 帮我写一份API接口文档的markdown版本
+      - 把这段代码的逻辑整理成流程图
+      - 重构后帮我写个迁移指南文档
+      - 用Python写一个异步爬虫要求支持断点续爬并记录日志
+      - 实现一个gRPC接口包含认证和限流功能
+      - 帮我重构这个单体应用为微服务并保持数据一致性
+      - 写一个GitHub Actions工作流来自动化测试和部署
+      - 实现一个实时数据处理管道支持背压机制
+      aggregation_method: max
+    - name: semantic_data_analysis
+      threshold: 0.55
+      candidates:
+      - Analyze the sales trends across different regions from this CSV
+      - Calculate the correlation matrix for these variables
+      - Generate a time series forecast for next quarter revenue
+      - Build a customer churn prediction model from user data
+      - Create a dashboard showing key business metrics
+      - 帮我分析一下为什么上个月的转化率下降了
+      - 看看这些数据里有没有什么有趣的模式
+      - 能不能帮我算一下用户的平均客单价
+      - 我想知道哪个渠道的ROI最高
+      - 帮我看看用户的流失主要集中在哪些环节
+      - 分析这份销售数据的月度趋势
+      - 统计不同年龄段用户的购买偏好
+      - 计算A/B测试的统计显著性
+      - 对用户行为数据进行聚类分析
+      - 用回归分析找出影响销量的关键因素
+      - 用Python代码实现这个数据分析流程
+      - 帮我生成一份包含图表的数据分析报告
+      - 分析这段代码的性能数据并给出结论
+      - 基于历史数据写一份市场分析报告
+      - 帮我实现一个自动化的数据清洗管道
+      - 分析百万级用户行为数据并生成可视化看板
+      - 用时间序列分析预测销售并给出置信区间
+      - 对多维度数据进行归因分析找到增长杠杆
+      - 结合RFM模型做用户分层并输出报表
+      - 实时分析流式数据并检测异常模式
+      aggregation_method: max
+    - name: semantic_document
+      threshold: 0.6
+      candidates:
+      - Summarize the key findings from this research paper
+      - Translate this technical manual from English to Chinese
+      - Extract the main topics from this collection of articles
+      - Write a business proposal outline for investors
+      - Proofread and edit this academic essay for grammar
+      - 帮我把这篇长文章的核心观点提炼出来
+      - 能不能把这份合同里的关键条款标出来
+      - 帮我润色一下这段文字让它读起来更顺畅
+      - 我想把这篇中文文章翻译成英文发表
+      - 帮我检查一下这份报告有没有逻辑漏洞
+      - 总结这篇论文的创新点和实验方法
+      - 把这份产品说明书改写成FAQ格式
+      - 提取这份调研报告的关键数据和结论
+      - 整理会议记录中的决策和待办事项
+      - 把这篇文章改写成适合小朋友阅读的版本
+      - 为这个开源项目写一份完善的贡献指南文档
+      - 把这段API文档从OpenAPI格式转换为markdown
+      - 分析文档中的统计数据并生成摘要报告
+      - 帮我写一份代码重构的技术设计文档
+      - 整理项目文档中的技术指标并生成分析报告
+      - 翻译这份50页的技术文档并保留所有图表和公式
+      - 总结多份竞品分析报告并输出对比表格
+      - 把用户反馈整理成分类汇总报告并附上数据支持
+      - 帮我审查这份合同找出风险条款并给出修改意见
+      - 将会议录音转写成纪要并提取行动项和责任人
+      aggregation_method: max
+    - name: semantic_vision_understanding
+      threshold: 0.55
+      candidates:
+      - Analyze the composition and lighting of this photograph
+      - Identify the objects and terrain in this satellite image
+      - Read and transcribe the text from this handwritten note
+      - Describe the scene and activities in this video frame
+      - Detect and count the vehicles in this traffic camera image
+      - 这张照片是在哪个城市拍的你能看出来吗
+      - 帮我看看这张X光片有没有异常的地方
+      - 这张图里的文字帮我读出来
+      - 能不能帮我数一下这张图上的人
+      - 看看这张产品图有什么需要改进的设计
+      - 分析这张医学影像中的病灶区域
+      - 识别这张图片中的动植物种类
+      - 帮我解读这张工程图纸的标注
+      - 检查这张图片中的人物表情
+      - 分析这张地图的地形和地貌特征
+      - 分析这张AI生成的图片有哪些不自然的地方
+      - 这张图表里的数据准确性如何帮我验证
+      - 帮我分析这张包含数据和代码的截图
+      - 识别这张信息图中的所有数据点和标签
+      - 这张由文字生成的图片是否准确传达了原文意思
+      - 分析这张显微镜图片并识别所有细胞类型标注位置
+      - 从这段监控视频中识别可疑行为并生成文字报告
+      - 帮我解读这张复合图表同时分析其数据可信度
+      - 识别图片中的多语言文字并翻译成中文
+      - 分析产品设计图的UX布局问题和视觉风格一致性
+      aggregation_method: max
+    - name: semantic_image_generation
+      threshold: 0.55
+      candidates:
+      - Generate a photorealistic landscape of a mountain lake at sunset
+      - Create a minimalist logo for a tech startup named ByteFlow
+      - Draw an illustration of a futuristic city skyline with neon lights
+      - Design a banner for an electronic music festival
+      - Generate a fantasy character concept art with armor and sword
+      - 帮我画一张看起来很专业的商业海报
+      - 我想要一张科技感十足的桌面壁纸
+      - 能不能帮我生成一个好看的头像
+      - 画一张夏天海边日落时的插画
+      - 帮我设计一套PPT的封面和模板
+      - 生成一张包含数据图表和文字的商业报告封面
+      - 画一张展示微服务架构的示意图包含箭头和标注
+      - 帮我生成一个产品功能流程图带图标
+      - 设计一个软件开发团队的logo带代码元素
+      - 生成一幅结合代码和抽象艺术的创意图片
+      - 生成一张看起来像是真实照片的图表截图
+      - 帮我画一个带文字说明的系统架构图
+      - 生成一张包含柱状图和折线图的教育海报
+      - 创建一张模拟IDE界面的编程教学插图
+      - 生成一张混合了数据和视觉元素的创意广告图
+      - 生成一张展示API调用流程的信息图包含代码片段和箭头标注
+      - 画一幅融合中国水墨风格和赛博朋克元素的都市夜景图
+      - 生成一张用于技术博客的封面图包含图表和标题文字
+      - 帮我设计一个三栏式的产品对比图包含图标和评分
+      - 生成一张教育用的交互式UI线框图包含标注说明
+      aggregation_method: max
+    - name: semantic_simple_chat
+      threshold: 0.5
+      candidates:
+      - Recommend some good restaurants near me for dinner
+      - What movies should I watch this weekend
+      - Tell me an interesting fact about space exploration
+      - Give me some tips to stay productive while working from home
+      - What are some good books to read for personal growth
+      - 今天心情不好给我讲个笑话逗我开心
+      - 你觉得我该不该换工作给点建议
+      - 有什么好看的综艺推荐吗
+      - 我最近想去旅游有什么推荐的地方
+      - 给我出个谜语让我猜猜
+      - 推荐几首适合学习时听的轻音乐
+      - 告诉我一些提高睡眠质量的方法
+      - 有什么适合一个人独处时做的活动
+      - 给我推荐几个好用的效率工具
+      - 教我一个简单的放松减压技巧
+      - 你觉得人工智能最终会毁灭人类吗
+      - 跟我聊聊你最近学到了什么有趣的东西
+      - 人生的意义到底是什么
+      - 你怎么看待996工作制说说想法
+      - 说说你最喜欢的一本书和原因
+      - 推荐三部悬疑电影并简单告诉我为什么好看
+      - 给我三个提高效率的技巧再加一句鼓励的话
+      - 先给我讲个笑话然后推荐一部治愈系电影
+      - 推荐一个周末行程方案包括吃的玩的
+      - 分享三个冷知识再问我一个有趣的问题
+      aggregation_method: max
+    - name: semantic_general
+      threshold: 0.3
+      candidates:
+      - What is the meaning of life in philosophy
+      - Explain the economic concept of supply and demand
+      - How does photosynthesis work in plants
+      - What causes earthquakes and tsunamis
+      - Tell me about the history of the internet
+      - 电是怎么从发电厂送到家里的
+      - 为什么我们每天都要睡觉
+      - 告诉我关于大熊猫的一些有趣知识
+      - 黑洞是怎么形成的会消失吗
+      - 什么是5G技术跟4G有什么区别
+      - 解释一下什么是货币宽松政策
+      - 介绍一下太阳系八大行星的特点
+      - 什么是机器学习中的过拟合
+      - 告诉我人体最大的器官是什么
+      - 介绍一下中国唐朝的鼎盛时期
+      - 帮我解释一下这段简单的代码是什么意思
+      - 数据分析师是做什么的工作内容有哪些
+      - 文档管理和知识管理有什么区别
+      - AI是怎么识别和分类图片的
+      - AI绘画背后的技术原理是什么
+      - 用简单的语言解释区块链然后说说它的优缺点
+      - 介绍三个著名的科学发现并说明它们的影响
+      - 解释什么是气候变化并给出三个应对措施
+      - 告诉我编程是什么适合什么样的人学
+      - 解释云存储的工作原理和常见的服务提供商
+      aggregation_method: max
+  decisions:
+  - name: route_smoke
+    description: Smoke test decision
+    priority: 999
+    rules:
+      operator: AND
+      conditions:
+      - type: keyword
+        name: smoke_route_token
+    modelRefs:
+    - model: DeepSeek-V4-flash-gz
+      use_reasoning: false
+  - name: default-route
+    description: Generated during setup to route all requests to the default model.
+    priority: 1
+    rules:
+      operator: AND
+    modelRefs:
+    - model: DeepSeek-V4-flash-gz
+      use_reasoning: false
+  - name: route_general
+    description: Route to code model when semantic_general signal is matched
+    priority: 100
+    rules:
+      operator: AND
+      conditions:
+      - type: embedding
+        name: semantic_general
+    modelRefs:
+    - model: DeepSeek-V4-flash-gz
+      use_reasoning: false
+  - name: route_simple_chat
+    description: Route to code model when semantic_simple_chat signal is matched
+    priority: 150
+    rules:
+      operator: AND
+      conditions:
+      - type: embedding
+        name: semantic_simple_chat
+    modelRefs:
+    - model: DeepSeek-V4-flash-gz
+      use_reasoning: false
+  - name: route_code
+    description: Route to code model when semantic_code signal is matched
+    priority: 200
+    rules:
+      operator: AND
+      conditions:
+      - type: embedding
+        name: semantic_code
+    modelRefs:
+    - model: DeepSeek-V4-flash-gz
+      use_reasoning: false
+  - name: route_data_analysis
+    description: Route to code model when semantic_data_analysis signal is matched
+    priority: 190
+    rules:
+      operator: AND
+      conditions:
+      - type: embedding
+        name: semantic_data_analysis
+    modelRefs:
+    - model: DeepSeek-V4-flash-gz
+      use_reasoning: false
+  - name: route_document
+    description: Route to code model when semantic_document signal is matched
+    priority: 180
+    rules:
+      operator: AND
+      conditions:
+      - type: embedding
+        name: semantic_document
+    modelRefs:
+    - model: DeepSeek-V4-flash-gz
+      use_reasoning: false
+  - name: route_vision_understanding
+    description: Route to code model when semantic_vision_understanding signal is
+      matched
+    priority: 170
+    rules:
+      operator: AND
+      conditions:
+      - type: embedding
+        name: semantic_vision_understanding
+    modelRefs:
+    - model: DeepSeek-V4-flash-gz
+      use_reasoning: false
+  - name: route_image_generation
+    description: Route to code model when semantic_image_generation signal is matched
+    priority: 160
+    rules:
+      operator: AND
+      conditions:
+      - type: embedding
+        name: semantic_image_generation
+    modelRefs:
+    - model: DeepSeek-V4-flash-gz
+      use_reasoning: false
+global:
+  router:
+    config_source: file
+    auto_model_name: MoM
+    include_config_models_in_list: false
+    clear_route_cache: true
+    streamed_body:
+      enabled: false
+    skip_processing:
+      enabled: false
+    model_selection:
+      method: knn
+      enabled: true
+      router_dc:
+        temperature: 0.07
+        dimension_size: 768
+        min_similarity: 0.3
+        use_query_contrastive: true
+        use_model_contrastive: true
+        require_descriptions: false
+        use_capabilities: true
+      hybrid:
+        experience_weight: 0.3
+        router_dc_weight: 0.3
+        automix_weight: 0.2
+        cost_weight: 0.2
+        quality_gap_threshold: 0.1
+        normalize_scores: true
+  services:
+    api:
+      batch_classification: {}
+    response_api:
+      enabled: true
+      store_backend: redis
+      ttl_seconds: 86400
+      max_responses: 1000
+    observability:
+      tracing:
+        enabled: true
+        provider: opentelemetry
+        exporter:
+          type: otlp
+          endpoint: vllm-sr-jaeger:4317
+          insecure: true
+        sampling:
+          type: always_on
+          rate: 1
+        resource:
+          service_name: vllm-sr
+          service_version: v0.3.0
+          deployment_environment: development
+      metrics:
+        enabled: true
+        windowed_metrics:
+          enabled: false
+          model_metrics: false
+          queue_depth_estimation: false
+    authz: {}
+    ratelimit: {}
+    management_api:
+      bind_address: 127.0.0.1
+      port: 8080
+      auth:
+        mode: disabled
+        roles:
+          admin:
+          - '*'
+          operator:
+          - health.read
+          - ready.read
+          - docs.read
+          - metrics.read
+          - classify.invoke
+          - config.read
+          - config.write
+          - learning.ingest
+          - data.read
+          - data.write
+          viewer:
+          - health.read
+          - ready.read
+          - docs.read
+          - metrics.read
+          - classify.invoke
+          - config.read
+          - data.read
+    router_replay:
+      enabled: true
+      store_backend: postgres
+      ttl_seconds: 2592000
+    startup_status:
+      store_backend: file
+  stores:
+    semantic_cache:
+      backend_type: memory
+      enabled: true
+      max_entries: 1000
+      ttl_seconds: 3600
+      eviction_policy: fifo
+    memory:
+      milvus:
+        address: ''
+        collection: agentic_memory
+        dimension: 384
+      extraction_batch_size: 10
+      default_retrieval_limit: 5
+      default_similarity_threshold: 0.7
+  integrations:
+    tools:
+      enabled: false
+      top_k: 3
+      tools_db_path: config/tools_db.json
+      fallback_to_empty: true
+    looper:
+      endpoint: http://localhost:8899/v1/chat/completions
+      timeout_seconds: 1200
+      flow:
+        state:
+          store_backend: file
+          ttl_seconds: 1800
+  model_catalog:
+    embeddings:
+      semantic:
+        qwen3_model_path: ''
+        gemma_model_path: ''
+        mmbert_model_path: models/mmbert-embed-32k-2d-matryoshka
+        bert_model_path: ''
+        use_cpu: true
+        embedding_config:
+          model_type: mmbert
+          preload_embeddings: true
+          target_dimension: 768
+          target_layer: 22
+          enable_soft_matching: true
+          top_k: 1
+          min_score_threshold: 0.5
+    system:
+      prompt_guard: models/mmbert32k-jailbreak-detector-merged
+      domain_classifier: models/mmbert32k-intent-classifier-merged
+      pii_classifier: models/mmbert32k-pii-detector-merged
+      fact_check_classifier: models/mmbert32k-factcheck-classifier-merged
+      hallucination_detector: models/mom-halugate-detector
+      hallucination_explainer: models/mom-halugate-explainer
+      feedback_detector: models/mmbert32k-feedback-detector-merged
+    kbs:
+    - name: privacy_kb
+      source:
+        path: knowledge_bases/privacy/
+        manifest: labels.json
+      threshold: 0.55
+      label_thresholds:
+        prompt_injection: 0.7
+      groups:
+        frontier_reasoning:
+        - architecture_analysis
+        - root_cause_analysis
+        - multi_step_tradeoffs
+        local_standard:
+        - generic_coding
+        - simple_task
+        - general_knowledge
+        privacy_policy:
+        - proprietary_code
+        - internal_document
+        - pii
+        - business_strategy
+        - trade_secret_ip
+        - operational_infrastructure
+        - locality_directive
+        - customer_data
+        private:
+        - prompt_injection
+        - credential_exfiltration
+        - jailbreak_role
+        - system_prompt_extraction
+        - proprietary_code
+        - internal_document
+        - pii
+        - business_strategy
+        - trade_secret_ip
+        - operational_infrastructure
+        - locality_directive
+        - customer_data
+        public:
+        - architecture_analysis
+        - root_cause_analysis
+        - multi_step_tradeoffs
+        - generic_coding
+        - simple_task
+        - general_knowledge
+        security_containment:
+        - prompt_injection
+        - credential_exfiltration
+        - jailbreak_role
+        - system_prompt_extraction
+      metrics:
+      - name: private_vs_public
+        type: group_margin
+        positive_group: private
+        negative_group: public
+    - name: mmlu_kb
+      source:
+        path: knowledge_bases/mmlu/
+        manifest: labels.json
+      threshold: 0.25
+      groups:
+        escalate:
+        - biology
+        - business
+        - computer science
+        - economics
+        - history
+        - math
+        - other
+        - philosophy
+        - psychology
+        keep:
+        - chemistry
+        - engineering
+        - health
+        - law
+        - physics
+      metrics:
+      - name: escalate_vs_keep
+        type: group_margin
+        positive_group: escalate
+        negative_group: keep
+    modules:
+      prompt_compression:
+        enabled: false
+        max_tokens: 0
+      prompt_guard:
+        enabled: true
+        model_id: ''
+        threshold: 0.7
+        use_cpu: true
+        use_modernbert: false
+        use_mmbert_32k: true
+        jailbreak_mapping_path: models/mmbert32k-jailbreak-detector-merged/jailbreak_type_mapping.json
+        model_ref: prompt_guard
+      classifier:
+        domain:
+          model_id: ''
+          threshold: 0.5
+          use_cpu: true
+          use_modernbert: false
+          use_mmbert_32k: true
+          category_mapping_path: models/mmbert32k-intent-classifier-merged/category_mapping.json
+          model_ref: domain_classifier
+        mcp:
+          enabled: false
+          transport_type: ''
+          threshold: 0
+        pii:
+          model_id: ''
+          threshold: 0.9
+          use_cpu: true
+          use_mmbert_32k: true
+          pii_mapping_path: models/mmbert32k-pii-detector-merged/pii_type_mapping.json
+          model_ref: pii_classifier
+        preference:
+          use_contrastive: true
+      complexity:
+        prototype_scoring:
+          enabled: true
+          cluster_similarity_threshold: 0.9
+          max_prototypes: 8
+          best_weight: 0.75
+          top_m: 2
+      hallucination_mitigation:
+        fact_check:
+          model_id: ''
+          threshold: 0.6
+          use_cpu: true
+          use_mmbert_32k: true
+          model_ref: fact_check_classifier
+        detector:
+          model_id: ''
+          threshold: 0.8
+          use_cpu: true
+          min_span_length: 2
+          min_span_confidence: 0.6
+          context_window_size: 50
+          enable_nli_filtering: true
+          nli_entailment_threshold: 0.75
+          model_ref: hallucination_detector
+        explainer:
+          model_id: ''
+          threshold: 0.9
+          use_cpu: true
+          model_ref: hallucination_explainer
+      feedback_detector:
+        enabled: true
+        model_id: ''
+        threshold: 0.7
+        use_cpu: true
+        use_modernbert: false
+        use_mmbert_32k: true
+        feedback_mapping_path: ''
+        model_ref: feedback_detector
+      modality_detector:
+        enabled: false
+_metadata:
+  examples_version: v2.0
+  threshold_config_hash: 5d5ec15225c9d182
+  eval_data_hash: 4ccd03b62510dc5b
+  generated_by: evaluate_vllm_router.py
+  generated_at: '2026-07-31 16:03:07'

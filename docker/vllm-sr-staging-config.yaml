@@ -1,0 +1,105 @@
+version: v0.3
+
+listeners:
+  - name: http-8899
+    address: 0.0.0.0
+    port: 8899
+    timeout: 30s
+
+providers:
+  defaults:
+    default_model: staging-router-placeholder
+  models:
+    - name: staging-router-placeholder
+      provider_model_id: staging-router-placeholder
+      api_format: openai
+      backend_refs:
+        - name: local-placeholder
+          endpoint: host.docker.internal:8000
+          protocol: http
+          weight: 100
+
+routing:
+  strategy: priority
+  modelCards:
+    - name: staging-router-placeholder
+      modality: text
+      description: Local staging placeholder; no upstream request is made by evaluation.
+
+  signals:
+    keywords:
+      - name: route_code
+        operator: OR
+        method: bm25
+        bm25_threshold: 0.1
+        case_sensitive: false
+        keywords:
+          - code
+          - coding
+          - python
+          - javascript
+          - sql
+          - api
+          - algorithm
+          - debug
+          - implement
+          - 代码
+          - 编程
+          - 接口
+          - 算法
+          - 调试
+          - 实现
+      - name: route_data
+        operator: OR
+        method: bm25
+        bm25_threshold: 0.1
+        case_sensitive: false
+        keywords:
+          - csv
+          - excel
+          - table
+          - chart
+          - statistics
+          - analysis
+          - data
+          - 数据
+          - 表格
+          - 统计
+          - 分析
+          - 趋势图
+      - name: route_document
+        operator: OR
+        method: bm25
+        bm25_threshold: 0.1
+        case_sensitive: false
+        keywords:
+          - pdf
+          - document
+          - contract
+          - 文档
+          - 合同
+          - 报告
+      - name: route_vision
+        operator: OR
+        method: bm25
+        bm25_threshold: 0.1
+        case_sensitive: false
+        keywords:
+          - image
+          - photo
+          - picture
+          - 图片
+          - 照片
+          - 截图
+      - name: route_image_generation
+        operator: OR
+        method: bm25
+        bm25_threshold: 0.1
+        case_sensitive: false
+        keywords:
+          - generate an image
+          - draw
+          - illustration
+          - 生成图片
+          - 画一幅
+          - 海报

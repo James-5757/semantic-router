@@ -1,0 +1,45 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Models and runtime
+models/
+.vllm-sr/
+.env
+.env.*
+*.key
+*.pem
+
+# Logs and temporary output
+*.log
+tmp/
+temp/
+router_store/
+playground_logs/
+.gocache*/
+*.pcap
+*.pcapng
+
+# Private evaluation inputs and generated replay artifacts
+datasets/generated/
+datasets/labeled/
+replay_outputs/
+router_test_datasets/
+router_test_datasets_v2/
+real_trace_eval_v1.jsonl
+*_result.json
+replay_results_*.json
+
+# Build
+bin/
+dist/
+build/
+*.exe
+
+# IDE and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

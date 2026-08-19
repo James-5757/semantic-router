@@ -1,0 +1,301 @@
+decisions:
+- name: route_code
+  description: Route to code model when semantic_code signal is matched
+  priority: 10
+  rules:
+    operator: AND
+    rules:
+    - field: semantic_code
+      operator: gte
+      value: 0.72
+  modelRefs:
+  - model: qwen/qwen3.5-rocm
+    use_reasoning: false
+- name: route_data_analysis
+  description: Route to code model when semantic_data_analysis signal is matched
+  priority: 10
+  rules:
+    operator: AND
+    rules:
+    - field: semantic_data_analysis
+      operator: gte
+      value: 0.7
+  modelRefs:
+  - model: qwen/qwen3.5-rocm
+    use_reasoning: false
+- name: route_document
+  description: Route to code model when semantic_document signal is matched
+  priority: 10
+  rules:
+    operator: AND
+    rules:
+    - field: semantic_document
+      operator: gte
+      value: 0.7
+  modelRefs:
+  - model: qwen/qwen3.5-rocm
+    use_reasoning: false
+- name: route_vision_understanding
+  description: Route to code model when semantic_vision_understanding signal is matched
+  priority: 10
+  rules:
+    operator: AND
+    rules:
+    - field: semantic_vision_understanding
+      operator: gte
+      value: 0.68
+  modelRefs:
+  - model: qwen/qwen3.5-rocm
+    use_reasoning: false
+- name: route_image_generation
+  description: Route to code model when semantic_image_generation signal is matched
+  priority: 10
+  rules:
+    operator: AND
+    rules:
+    - field: semantic_image_generation
+      operator: gte
+      value: 0.68
+  modelRefs:
+  - model: qwen/qwen3.5-rocm
+    use_reasoning: false
+- name: route_simple_chat
+  description: Route to code model when semantic_simple_chat signal is matched
+  priority: 10
+  rules:
+    operator: AND
+    rules:
+    - field: semantic_simple_chat
+      operator: gte
+      value: 0.65
+  modelRefs:
+  - model: qwen/qwen3.5-rocm
+    use_reasoning: false
+- name: route_general
+  description: Route to code model when semantic_general signal is matched
+  priority: 90
+  rules:
+    operator: AND
+    rules:
+    - field: semantic_general
+      operator: gte
+      value: 0.6
+  modelRefs:
+  - model: qwen/qwen3.5-rocm
+    use_reasoning: false
+- description: Generated during setup to route all requests to the default model.
+  modelRefs:
+  - model: qwen/qwen3.5-rocm
+    use_reasoning: false
+  name: default-route
+  priority: 100
+  rules:
+    operator: AND
+modelCards:
+- modality: text
+  name: qwen/qwen3.5-rocm
+signals:
+  embeddings:
+  - name: semantic_code
+    candidates:
+    - Write a Python function
+    - Implement an API endpoint
+    - Debug this code
+    - Build a backend service
+    - Create a REST API
+    - Implement database query logic
+    - Write a sorting algorithm
+    - Build a web scraper
+    - Create a user login interface
+    - Write unit tests for this function
+    - 用Python写一个函数
+    - 实现一个用户登录接口
+    - 修复这段代码
+    - 编写一个可运行的程序
+    - 设计REST API
+    - 实现数据库查询逻辑
+    - 写一个排序算法
+    - 创建一个网页爬虫
+    - 帮我调试这段程序
+    - 实现用户认证功能
+    - 写一个排序程序
+    - 用代码实现这个功能
+    - 帮我写个接口
+    - 开发一个后端服务
+    - 实现文件上传功能
+    threshold: 0.72
+    aggregation_method: max
+  - name: semantic_data_analysis
+    candidates:
+    - Analyze this dataset
+    - Generate a trend chart from CSV
+    - Calculate statistics from data
+    - Create a visualization
+    - Build a dashboard
+    - Analyze sales trends
+    - Generate insights from Excel
+    - Create a bar chart
+    - Calculate growth rate
+    - Process this data file
+    - 分析这个数据集
+    - 根据CSV生成趋势图
+    - 计算统计数据
+    - 创建一个可视化图表
+    - 构建数据仪表板
+    - 分析销售趋势
+    - 从Excel生成洞察
+    - 创建柱状图
+    - 计算增长率
+    - 处理这个数据文件
+    - 分析用户行为数据
+    - 生成数据报告
+    - 统计这些数据
+    - 创建一个折线图
+    - 分析这份报表
+    threshold: 0.7
+    aggregation_method: max
+  - name: semantic_document
+    candidates:
+    - Summarize this document
+    - Translate this article
+    - Write a work summary
+    - Create a report
+    - Edit this paper
+    - Summarize the PDF
+    - Write a business proposal
+    - Create a user manual
+    - Proofread this document
+    - Generate a summary
+    - 总结这篇文档
+    - 翻译这篇英文文章
+    - 写一篇工作总结
+    - 创建一份报告
+    - 编辑这篇论文
+    - 总结PDF内容
+    - 写一份商业提案
+    - 创建用户手册
+    - 校对这份文档
+    - 生成摘要
+    - 帮我总结一下
+    - 提取文档要点
+    - 写一份说明书
+    - 整理这份资料
+    - 概括这篇文章
+    threshold: 0.7
+    aggregation_method: max
+  - name: semantic_vision_understanding
+    candidates:
+    - Analyze this image
+    - Describe what's in this picture
+    - What objects are in this photo
+    - Identify the elements in this image
+    - Explain this diagram
+    - What does this chart show
+    - Detect faces in this image
+    - Read the text in this image
+    - Analyze the content of this photo
+    - What is in this screenshot
+    - 分析这张图片
+    - 描述这张照片里的内容
+    - 这张图片里有什么物体
+    - 识别这张图片中的元素
+    - 解释这张图表
+    - 这个图表显示了什么
+    - 检测这张图片中的人脸
+    - 读取这张图片中的文字
+    - 分析这张照片的内容
+    - 这张截图里有什么
+    - 看看这张图片里有什么
+    - 分析图片中的物体
+    - 描述一下这张图
+    - 这张照片是什么内容
+    - 识别图片中的文字
+    threshold: 0.68
+    aggregation_method: max
+  - name: semantic_image_generation
+    candidates:
+    - Generate an image
+    - Create a picture of
+    - Draw a illustration
+    - Make an image showing
+    - Generate a city poster
+    - Create a logo design
+    - Generate a landscape photo
+    - Create an avatar
+    - Design a banner
+    - Generate a fantasy scene
+    - 生成一张图片
+    - 创建一张...的图片
+    - 画一个插画
+    - 生成一张未来城市海报
+    - 创建一个标志设计
+    - 生成一张风景照片
+    - 创建一个头像
+    - 设计一个横幅
+    - 生成一个奇幻场景
+    - 帮我画一幅画
+    - 生成一张猫咪的图片
+    - 创作一幅海报
+    - 生成一张艺术图片
+    - 创建一张封面图
+    - 设计一个图标
+    threshold: 0.68
+    aggregation_method: max
+  - name: semantic_simple_chat
+    candidates:
+    - Recommend some restaurants
+    - What songs should I study to
+    - Tell me the news today
+    - What's the weather like
+    - Can you help me
+    - I need some advice
+    - What do you think about
+    - Chat with me
+    - Tell me a joke
+    - What is your opinion
+    - 推荐几家餐厅
+    - 给我推荐几首学习的歌
+    - 今天有什么新闻
+    - 今天天气怎么样
+    - 能帮我个忙吗
+    - 我需要一些建议
+    - 你觉得...怎么样
+    - 和我聊聊天
+    - 给我讲个笑话
+    - 你的看法是什么
+    - 给歌曲排个名
+    - 解释PDF是什么意思
+    - 推荐一些电影
+    - 帮我选一个
+    - 和我聊一聊
+    threshold: 0.65
+    aggregation_method: max
+  - name: semantic_general
+    candidates:
+    - Hello how are you
+    - Thank you
+    - Goodbye
+    - What is the time
+    - Help me please
+    - I have a question
+    - Can you explain
+    - What does this mean
+    - Tell me about
+    - I need information
+    - 你好
+    - 谢谢
+    - 再见
+    - 现在几点了
+    - 请帮帮我
+    - 我有一个问题
+    - 你能解释一下吗
+    - 这是什么意思
+    - 告诉我关于
+    - 我需要一些信息
+    - 你好啊
+    - 最近怎么样
+    - 帮我查一下
+    - 我想问一下
+    - 有什么可以帮你的
+    threshold: 0.6
+    aggregation_method: max
