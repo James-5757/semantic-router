@@ -169,15 +169,15 @@ func (e *TaskUnderstandingEngine) recognizeActions(prompt string) []string {
 
 	// 编程相关动作
 	codeActions := map[string][]string{
-		"write":           {"写", "编写", "实现", "创建", "开发", "write", "code", "implement", "create", "build"},
-		"debug":           {"调试", "debug", "fix", "修复", "报错", "error", "bug", "问题"},
-		"refactor":        {"重构", "refactor", "优化", "优化代码"},
-		"explain":         {"解释", "explain", "介绍", "说明", "讲解"},
-		"analyze":         {"分析", "analyze", "分析", "分析一下"},
-		"generate":        {"生成", "生成", "create", "generate"},
-		"transform":       {"转换", "convert", "transform", "改写"},
-		"query":           {"查询", "query", "搜索", "查找"},
-		"plan":            {"规划", "plan", "设计", "方案", "思路"},
+		"write":     {"写", "编写", "实现", "创建", "开发", "write", "code", "implement", "create", "build"},
+		"debug":     {"调试", "debug", "fix", "修复", "报错", "error", "bug", "问题"},
+		"refactor":  {"重构", "refactor", "优化", "优化代码"},
+		"explain":   {"解释", "explain", "介绍", "说明", "讲解"},
+		"analyze":   {"分析", "analyze", "分析", "分析一下"},
+		"generate":  {"生成", "生成", "create", "generate"},
+		"transform": {"转换", "convert", "transform", "改写"},
+		"query":     {"查询", "query", "搜索", "查找"},
+		"plan":      {"规划", "plan", "设计", "方案", "思路"},
 	}
 
 	for action, keywords := range codeActions {
@@ -225,11 +225,11 @@ func (e *TaskUnderstandingEngine) recognizeDomains(prompt string) []string {
 	domains := []string{}
 
 	domainKeywords := map[string][]string{
-		"programming": {"代码", "编程", "开发", "实现", "写代码", "code", "programming", "implement", "develop"},
+		"programming":  {"代码", "编程", "开发", "实现", "写代码", "code", "programming", "implement", "develop"},
 		"data_science": {"数据", "分析", "统计", "模型", "预测", "data", "analysis", "statistics", "model", "ml"},
-		"vision": {"图片", "图像", "图片", "照片", "image", "photo", "picture", "vision"},
-		"document": {"文档", "文章", "pdf", "word", "doc", "document"},
-		"general": {"聊天", "问答", "解释", "介绍", "chat", "qa", "explain"},
+		"vision":       {"图片", "图像", "图片", "照片", "image", "photo", "picture", "vision"},
+		"document":     {"文档", "文章", "pdf", "word", "doc", "document"},
+		"general":      {"聊天", "问答", "解释", "介绍", "chat", "qa", "explain"},
 	}
 
 	for domain, keywords := range domainKeywords {
@@ -247,16 +247,19 @@ func (e *TaskUnderstandingEngine) recognizeDomains(prompt string) []string {
 // recognizeOutputArtifacts 识别输出产物
 func (e *TaskUnderstandingEngine) recognizeOutputArtifacts(prompt string) []string {
 	artifacts := []string{}
+	if isImagePromptAuthoringRequest(prompt) {
+		return []string{"image_prompt_text"}
+	}
 
 	// 输出产物关键词
 	outputKeywords := map[string][]string{
 		"executable_code": {"代码", "函数", "程序", "script", "code", "function", "program", "实现"},
-		"chart": {"图表", "图", "折线", "柱状", "饼图", "chart", "graph", "visualization"},
-		"image": {"图片", "生成图片", "海报", "画图", "image", "picture", "generate"},
-		"text": {"文本", "回答", "解释", "说明", "text", "answer", "explanation"},
-		"document": {"文档", "报告", "总结", "document", "report", "summary"},
-		"data": {"数据", "表格", "csv", "data", "table"},
-		"analysis": {"分析", "分析结果", "分析报告", "analysis", "result"},
+		"chart":           {"图表", "图", "折线", "柱状", "饼图", "chart", "graph", "visualization"},
+		"image":           {"图片", "生成图片", "海报", "画图", "image", "picture", "generate"},
+		"text":            {"文本", "回答", "解释", "说明", "text", "answer", "explanation"},
+		"document":        {"文档", "报告", "总结", "document", "report", "summary"},
+		"data":            {"数据", "表格", "csv", "data", "table"},
+		"analysis":        {"分析", "分析结果", "分析报告", "analysis", "result"},
 	}
 
 	for artifact, keywords := range outputKeywords {
@@ -291,6 +294,10 @@ func (e *TaskUnderstandingEngine) recognizeConstraints(prompt string) []string {
 
 // determineIntents 确定意图
 func (e *TaskUnderstandingEngine) determineIntents(schema *TaskSchema) (string, []string) {
+	if isImagePromptAuthoringRequest(schema.OriginalPrompt) {
+		return "general_chat", []string{"image_prompt_authoring"}
+	}
+
 	// 基于动作和领域确定主要意图
 	hasCodeAction := containsString(schema.Actions, "write", "debug", "refactor")
 	hasDataDomain := containsString(schema.Domains, "data_science")

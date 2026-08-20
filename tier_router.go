@@ -116,6 +116,7 @@ func (r *MultiLayerRouter) Route(req *RouteRequest) *MultiLayerDecision {
 	docScore := allSemanticScores[string(PoolDocument)]
 	imageGenerationScore := allSemanticScores[string(PoolImageGeneration)]
 	cheapScore := allSemanticScores[string(PoolCheap)]
+	imagePromptAuthoring := isImagePromptAuthoringRequest(req.Prompt)
 
 	// 优先级检查
 	// 1. image_by_images_field - 强制规则最高
@@ -130,6 +131,15 @@ func (r *MultiLayerRouter) Route(req *RouteRequest) *MultiLayerDecision {
 		finalConfidence = 0.9
 		source = DecisionSourceRule
 		decision.MatchedRules = []string{"document_by_documents_field"}
+	case imagePromptAuthoring:
+		// The request discusses image generation, but the requested deliverable is
+		// text (keywords, tags, or a prompt), not an image asset. Keep it on a
+		// text-capable pool and do not require an image-generation account.
+		finalPool = PoolCheap
+		finalConfidence = 0.8
+		source = DecisionSourceRule
+		decision.MatchedRules = []string{"image_prompt_authoring_text_output"}
+		decision.RequiredCapabilities = RequiredCapabilities{ImageCapability: ImageCapabilityNone}
 	case (codeScore > 0.1 && codeScore >= dataScore+0.10 && codeScore >= docScore+0.10 && codeScore >= imageGenerationScore+0.10) || (codeScore > 0.05 && dataScore <= 0.05 && visionScore <= 0.05 && docScore <= 0.05 && imageGenerationScore <= 0.05):
 		// Code requires meaningful evidence before it can outrank another
 		// professional pool. Tiny description-token overlap must not turn a
@@ -219,9 +229,33 @@ func (r *MultiLayerRouter) Route(req *RouteRequest) *MultiLayerDecision {
 		decision.FallbackReason = ""
 	}
 
-	decision.TaskType = taskTypeForPool(finalPool, decision.TaskType)
+	if imagePromptAuthoring {
+		decision.TaskType = TaskTypeText
+	} else {
+		decision.TaskType = taskTypeForPool(finalPool, decision.TaskType)
+	}
 
 	return decision
+}
+
+// isImagePromptAuthoringRequest distinguishes asking a model to write a
+// text-to-image prompt from asking it to create the image itself. The former is
+// a text deliverable and must not consume an image-generation account.
+func isImagePromptAuthoringRequest(prompt string) bool {
+	lower := strings.ToLower(prompt)
+	mentionsImageGeneration := containsAny(lower, []string{
+		"文生图", "图片生成", "图像生成", "ai绘画", "ai 画图", "midjourney",
+		"stable diffusion", "dall-e", "dalle", "flux", "text to image", "text-to-image", "image generation",
+	})
+	requestsTextArtifact := containsAny(lower, []string{
+		"关键词", "关键字", "提示词", "提示语", "描述词", "标签", "tag", "tags",
+		"prompt", "prompts", "image prompt",
+	})
+	explicitImageAsset := containsAny(lower, []string{
+		"直接出图", "直接生成图片", "生成图片文件", "返回图片", "输出图片", "并生成图片", "同时生成图片",
+		"generate the image", "return an image", "create the image file",
+	})
+	return mentionsImageGeneration && requestsTextArtifact && !explicitImageAsset
 }
 
 // isForcedRule 检查是否是强制路由规则
