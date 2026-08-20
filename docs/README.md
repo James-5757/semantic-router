@@ -2,7 +2,17 @@
 
 [中文](README_CN.md)
 
-Start here when deploying or evaluating Semantic Router:
+## Recommended reading order
+
+| Situation | Read first | Then |
+| --- | --- | --- |
+| First local run | Root `README.md` | Start the Selector, verify `/heartbeat`, then start Playground. |
+| Ubuntu private-network deployment | [Deployment](DEPLOYMENT.md) | Verify service, logs, and rollback with [Operations](OPERATIONS.md). |
+| TokenCloud integration | [API](API.md) | Return candidate scores from Shadow `/select` without changing gateway scheduling. |
+| Routing and ranking explanation | [Architecture](ARCHITECTURE.md) | Inspect Pool, Tier, candidates, and reasons in Playground. |
+| Development or calibration | [Testing](TESTING.md) | Run focused checks and record holdout movement without deleting frozen fixtures. |
+
+## Maintained documentation
 
 - [Architecture](ARCHITECTURE.md): components, boundaries, and scoring.
 - [Deployment](DEPLOYMENT.md): Ubuntu, systemd, vLLM, and internal Nginx.
@@ -11,6 +21,19 @@ Start here when deploying or evaluating Semantic Router:
 - [API](API.md): Selector endpoints and TokenCloud v1.3 payload contract.
 - [Remaining v1.3 work](TOKENCLOUD_V13_REMAINING_WORK.md): integration backlog.
 
+## Repository guide
+
+| Path | Purpose |
+| --- | --- |
+| Root `README.md` | Project entry point, local quick start, and safety boundary. |
+| `docs/` | Maintained material for users, deployers, and integrators. |
+| `cmd/server/` | Selector HTTP service entry point. |
+| `cmd/playground/` | Internal debugging UI and static assets. |
+| `deploy/ubuntu/` | systemd, Nginx, and environment examples. |
+| `docker/` | Optional Official vLLM score-only configuration. |
+| Root `*_test.go` | Unit, boundary, and Shadow safety tests. |
+
 Historical evaluation reports remain in this directory and at the module root.
-They are useful evidence, but the documents above are the maintained entry
-points for contributors and deployers.
+They are useful evidence, but do not replace the maintained documents above.
+Never put raw captures, secrets, account credentials, or unredacted prompts in
+the repository.

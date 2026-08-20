@@ -48,6 +48,7 @@ Prerequisites: Go 1.21 or later. Docker is optional and is only needed for the
 Official vLLM score-only service.
 
 ```bash
+# After cloning into semantic-router, the repository root is the Go module root.
 cd semantic_router
 go test -run 'TestModelSelector' -v
 
@@ -78,6 +79,27 @@ go run ./cmd/playground
 
 Open `http://127.0.0.1:8081/debug/router-playground`.
 
+## Where to start
+
+| Goal | Recommended path |
+| --- | --- |
+| Try routing and model recommendations locally | Follow the quick start above to run the Selector and Playground. |
+| Deploy to an Ubuntu private network | Read [Deployment](docs/DEPLOYMENT.md), then perform the [Operations](docs/OPERATIONS.md) checks. |
+| Connect TokenCloud or a gateway | Read the [API guide](docs/API.md); call `/heartbeat` first, then call `/select` in Shadow mode. |
+| Understand a model recommendation | Read [Architecture and scoring](docs/ARCHITECTURE.md), then inspect candidates, scores, and reasons in Playground. |
+| Change routing or ranking behavior | Run the focused checks in [Testing](docs/TESTING.md); do not edit frozen holdout fixtures. |
+
+### Minimum request flow
+
+1. The gateway sends `user_api_call` plus the current API-key group's
+   `model_list`, `models`, and eligible `accounts` to `/v1/model-selector/select`.
+2. The Selector extracts the latest user prompt, ranks only that group's models,
+   and returns a four-decimal `model_score_list` with a recommendation.
+3. During Shadow, the gateway logs the suggestion while the original Scheduler
+   still serves the real request.
+4. Use `/status`, `/history`, or Playground to inspect disagreement, latency,
+   fallback, and ranking before discussing any takeover policy.
+
 ## Documentation
 
 - [Architecture and scoring](docs/ARCHITECTURE.md)
@@ -86,6 +108,7 @@ Open `http://127.0.0.1:8081/debug/router-playground`.
 - [Testing and evaluation](docs/TESTING.md)
 - [HTTP API and TokenCloud v1.3 integration](docs/API.md)
 - [Remaining v1.3 work](docs/TOKENCLOUD_V13_REMAINING_WORK.md)
+- [Documentation reading order and repository guide](docs/README.md)
 
 ## Project status
 

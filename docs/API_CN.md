@@ -59,6 +59,32 @@
 响应保留原始 `user_api_call`，并返回 `semantics` 与 `model_score_list`。
 每个 `model_list` 成员都有一个四位小数的分数。
 
+## 首次联调：先心跳，再 Shadow 选择
+
+以下命令在 Selector 主机本机执行。`MODEL_SELECTOR_SECRET` 只应来自环境文件或
+Secret 管理，不要把真实值写进脚本或提交到仓库。
+
+```bash
+curl -fsS -H "X-Selector-Secret: $MODEL_SELECTOR_SECRET" \
+  http://127.0.0.1:18080/v1/model-selector/heartbeat
+```
+
+准备一个只含脱敏用户消息的示例请求，并编码为 `gzip + Base64`：
+
+```bash
+USER_API_CALL=$(printf '%s' '{"messages":[{"role":"user","content":"请用 Go 实现登录 API"}]}' \
+  | gzip -c | base64 -w 0)
+
+curl -fsS -X POST http://127.0.0.1:18080/v1/model-selector/select \
+  -H 'Content-Type: application/json' \
+  -H "X-Selector-Secret: $MODEL_SELECTOR_SECRET" \
+  -d "{\"user_api_call\":\"$USER_API_CALL\",\"model_list\":[\"gpt-5.4\",\"gemini-2.5-flash\"]}"
+```
+
+验收时确认：HTTP `200`、输入的每个模型恰好出现一次、分数保留四位小数、
+`shadow_only=true`、`upstream_called=false`。真实 TokenCloud 接入时再补充同 group
+的 `models` 与 `accounts`，以启用账号可用性和动态运行时排序。
+
 ## TokenCloud 发送端规则
 
 1. 只发送当前 API Key group 允许的模型与账号。

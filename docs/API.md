@@ -73,6 +73,35 @@ one four-decimal score for every member of `model_list`.
 }
 ```
 
+## First integration: heartbeat, then Shadow selection
+
+Run these commands locally on the Selector host. `MODEL_SELECTOR_SECRET` must
+come from an environment file or secret manager; never place a real value in a
+script or commit it to the repository.
+
+```bash
+curl -fsS -H "X-Selector-Secret: $MODEL_SELECTOR_SECRET" \
+  http://127.0.0.1:18080/v1/model-selector/heartbeat
+```
+
+Prepare a redacted example containing only a user message and encode it as
+`gzip + Base64`:
+
+```bash
+USER_API_CALL=$(printf '%s' '{"messages":[{"role":"user","content":"Implement a Go login API"}]}' \
+  | gzip -c | base64 -w 0)
+
+curl -fsS -X POST http://127.0.0.1:18080/v1/model-selector/select \
+  -H 'Content-Type: application/json' \
+  -H "X-Selector-Secret: $MODEL_SELECTOR_SECRET" \
+  -d "{\"user_api_call\":\"$USER_API_CALL\",\"model_list\":[\"gpt-5.4\",\"gemini-2.5-flash\"]}"
+```
+
+For acceptance, confirm HTTP `200`, exactly one score per input model, scores
+rounded to four decimals, `shadow_only=true`, and `upstream_called=false`. Add
+same-group `models` and `accounts` in the real TokenCloud integration to enable
+account availability filtering and dynamic runtime ranking.
+
 ## TokenCloud sender rules
 
 1. Send only models and accounts allowed by the current API key's group.

@@ -14,7 +14,7 @@ component in shadow-only mode.
 
 ```bash
 git clone <repository-url> semantic-router
-cd semantic-router/semantic_router
+cd semantic-router
 go test -run 'TestModelSelector' -v
 go build -o bin/semantic-router-server ./cmd/server
 go build -o bin/router-playground ./cmd/playground
