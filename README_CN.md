@@ -99,7 +99,8 @@ go run ./cmd/playground
 - [可复现评估结果](docs/EVALUATION_RESULTS_CN.md)
 - [公开 Playground 测试数据](testdata/README.md)
 - [HTTP API 与 TokenCloud v1.3](docs/API_CN.md)
-- [v1.3 剩余工作](docs/TOKENCLOUD_V13_REMAINING_WORK.md)
+- [TokenCloud v1.3 接入待办](docs/TOKENCLOUD_V13_REMAINING_WORK_CN.md)
+- [模型画像与 Hybrid V2](docs/MODEL_PROFILE_AND_HYBRID_V2_CN.md)
 - [文档阅读顺序与目录说明](docs/README_CN.md)
 
 ## 当前状态

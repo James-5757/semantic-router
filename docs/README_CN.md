@@ -22,6 +22,11 @@
 - [公开测试数据](../testdata/README.md)：Playground 导入、来源、哈希与使用限制。
 - [HTTP API 与 TokenCloud v1.3](API_CN.md)：接口与真实账号快照协议。
 - [v1.3 剩余工作](TOKENCLOUD_V13_REMAINING_WORK.md)：对接 backlog。
+- [TokenCloud v1.3 剩余工作（中文）](TOKENCLOUD_V13_REMAINING_WORK_CN.md)：真实转发接入与验收条件。
+- [模型画像与 Hybrid V2（中文）](MODEL_PROFILE_AND_HYBRID_V2_CN.md)：画像、候选排序与 tier 旁路。
+- [Staging Shadow（中文）](STAGING_SHADOW_ONLY_CN.md)：安全启动与最小验收。
+- [Staging 压测（中文）](STAGING_LOADTEST_CN.md)：模拟器、压测命令和基线。
+- [Batch Replay 数据提取（中文）](BATCH_REPLAY_DATASET_EXTRACTION_CN.md)：外部数据集提取和 Playground 导入。
 
 ## 目录职责
 
@@ -37,3 +42,10 @@
 
 本目录和模块根目录中保留了历史实验报告，便于追溯；它们不替代上述维护文档。
 不要将原始抓包、密钥、账号凭证或未脱敏 Prompt 放入仓库。
+
+## 英文历史参考
+
+`MODEL_SELECTOR_HTTP_V1_2_DEBUG.md`、`PHASE2_INTEGRATION_PROTOCOL_V1.md`、
+`TRAE_CUSTOM_MODEL_SETUP.md` 和阶段性状态/报告主要用于追溯旧协议或实验背景，
+不属于当前部署与接入主流程。需要使用时可参考英文原文，并以本索引中的中文维护文档
+为当前行为准则。

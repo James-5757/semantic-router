@@ -31,6 +31,26 @@ development fixture as production performance.
   It is reserved for final evaluation and must not be used for tuning, rules,
   thresholds, or examples.
 
+## Historical Playground Group-Agreement Observation
+
+| Item | Record |
+| --- | --- |
+| Input scale | Project owner reported 2,000+ locally imported prompts |
+| Metric | Percentage where local and Official classifiers selected the same group |
+| Observed value | Approximately 81% |
+| Data source | The local `router test` / Playground import at the time; no publishable export is currently present in this repository |
+| Status | Historical observation, **not reproducible and not a formal benchmark** |
+
+This metric measures whether two classifiers place a prompt in the same coarse
+model group, such as technical or general. It is not human-label accuracy and
+must not be compared directly with the Pool accuracy above. It is recorded only
+as historical context until the input artifact, output export, configuration,
+and run date are available.
+
+To promote it to a formal result, export the Playground batch JSON, retain the
+input JSONL SHA256, Official service version, run date, and total rows, then
+register a redacted fixture in `testdata/manifest.json`.
+
 ## Result reporting rule
 
 Every future result must state the dataset ID, case count, source, label status,
