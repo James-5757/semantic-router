@@ -1,0 +1,119 @@
+{"prompt": "hello world", "model": "gpt-3.5-turbo", "expected_pool": "default", "expected_tier": "medium"}
+{"prompt": "今天天气怎么样", "model": "gpt-3.5-turbo", "expected_pool": "default", "expected_tier": "medium"}
+{"prompt": "你好，请介绍一下北京", "model": "gpt-3.5-turbo", "expected_pool": "default", "expected_tier": "medium"}
+{"prompt": "Write a quick sort in Python", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "帮我写一个排序算法", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "Debug this code and fix the error", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "帮我优化这个 SQL 查询速度", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "请用 Java 写一个登录功能", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "Implement a binary search tree", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "这个接口返回的数据结构不对，帮我看看", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "describe this image", "model": "gpt-4o", "images": ["img.jpg"], "expected_pool": "vision", "expected_tier": "strong"}
+{"prompt": "请描述这张图片的内容", "model": "gpt-4o", "images": ["photo.png"], "expected_pool": "vision", "expected_tier": "strong"}
+{"prompt": "分析这个截图中的错误信息", "model": "gpt-4o", "images": ["error.png"], "expected_pool": "vision", "expected_tier": "strong"}
+{"prompt": "summarize this document", "model": "gpt-4", "documents": ["report.docx"], "expected_pool": "document", "expected_tier": "medium"}
+{"prompt": "总结这个 Word 并写成公众号文案", "model": "gpt-4", "documents": ["article.docx"], "expected_pool": "document", "expected_tier": "medium"}
+{"prompt": "提取这个 PDF 的主要内容", "model": "gpt-4", "documents": ["paper.pdf"], "expected_pool": "document", "expected_tier": "medium"}
+{"prompt": "帮我做一个用户登录功能，要求能保存账号信息", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "我想搭一个小工具，输入数据后自动生成图表", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "生成一个数据分析图表", "model": "gpt-4", "expected_pool": "data", "expected_tier": "medium"}
+{"prompt": "分析这份销售数据", "model": "gpt-4", "expected_pool": "data", "expected_tier": "medium"}
+{"prompt": "帮我写代码", "model": "gpt-3.5-turbo", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "写一个函数", "model": "gpt-3.5-turbo", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "实现算法", "model": "gpt-3.5-turbo", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "快排怎么写", "model": "gpt-3.5-turbo", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "这个代码报错了", "model": "gpt-3.5-turbo", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "I need to write a program", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "machine learning methods", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "帮我修复这个 bug", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "写一个爬虫程序", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "帮我写接口文档", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "什么是人工智能", "model": "gpt-3.5-turbo", "expected_pool": "default", "expected_tier": "medium"}
+{"prompt": "推荐一部电影", "model": "gpt-3.5-turbo", "expected_pool": "default", "expected_tier": "medium"}
+{"prompt": "如何学习编程", "model": "gpt-3.5-turbo", "expected_pool": "default", "expected_tier": "medium"}
+{"prompt": "帮我写一篇作文", "model": "gpt-4", "expected_pool": "default", "expected_tier": "medium"}
+{"prompt": "翻译这段英文", "model": "gpt-3.5-turbo", "expected_pool": "default", "expected_tier": "medium"}
+{"prompt": "解释一下量子计算", "model": "gpt-4", "expected_pool": "default", "expected_tier": "strong"}
+{"prompt": "帮我设计一个数据库表结构", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "写一个正则表达式", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "这个 SQL 怎么优化", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "帮我审查这段代码", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "生成单元测试", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "解释这段代码的意思", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "帮我重构这段代码", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "OCR 识别这个图片中的文字", "model": "gpt-4o", "images": ["ocr.jpg"], "expected_pool": "vision", "expected_tier": "strong"}
+{"prompt": "比较这两张图片的差异", "model": "gpt-4o", "images": ["a.jpg", "b.jpg"], "expected_pool": "vision", "expected_tier": "strong"}
+{"prompt": "从这个截图中提取信息", "model": "gpt-4o", "images": ["screenshot.png"], "expected_pool": "vision", "expected_tier": "strong"}
+{"prompt": "读取这个图片中的表格数据", "model": "gpt-4o", "images": ["table.jpg"], "expected_pool": "vision", "expected_tier": "strong"}
+{"prompt": "分析这篇论文", "model": "gpt-4", "documents": ["paper.pdf"], "expected_pool": "document", "expected_tier": "strong"}
+{"prompt": "审查这份合同的风险", "model": "gpt-4", "documents": ["contract.docx"], "expected_pool": "document", "expected_tier": "strong"}
+{"prompt": "从这个报告中提取关键数据", "model": "gpt-4", "documents": ["report.pdf"], "expected_pool": "document", "expected_tier": "medium"}
+{"prompt": "帮我生成一份月度总结报告", "model": "gpt-4", "expected_pool": "default", "expected_tier": "medium"}
+{"prompt": "写一个商业计划书", "model": "gpt-4", "expected_pool": "default", "expected_tier": "strong"}
+{"prompt": "低置信度测试 - abc", "model": "gpt-3.5-turbo", "expected_pool": "default", "expected_tier": "medium", "expected_fallback": true}
+{"prompt": "随便聊聊", "model": "gpt-3.5-turbo", "expected_pool": "default", "expected_tier": "medium"}
+{"prompt": "帮我看看这段代码有什么问题", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "写一个自动化脚本", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "帮我分析这个配置文件", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "这个报错日志是什么意思", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "帮我写一个前端页面", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "写一个数据库查询", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "帮我做表格分析", "model": "gpt-4", "expected_pool": "data", "expected_tier": "medium"}
+{"prompt": "生成一张图片", "model": "gpt-4o", "expected_pool": "vision", "expected_tier": "strong"}
+{"prompt": "画一幅画", "model": "gpt-4o", "expected_pool": "vision", "expected_tier": "strong"}
+{"prompt": "帮我写一首诗", "model": "gpt-3.5-turbo", "expected_pool": "default", "expected_tier": "medium"}
+{"prompt": "解释这个成语的意思", "model": "gpt-3.5-turbo", "expected_pool": "default", "expected_tier": "medium"}
+{"prompt": "今天几号", "model": "gpt-3.5-turbo", "expected_pool": "default", "expected_tier": "medium"}
+{"prompt": "帮我查一下明天天气", "model": "gpt-3.5-turbo", "expected_pool": "default", "expected_tier": "medium"}
+{"prompt": "写一个 Python 爬虫", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "帮我优化这段 Go 代码", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "这个 JavaScript 报错怎么解决", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "写一个 API 接口", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "帮我测试这个函数", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "分析这段代码的性能", "model": "gpt-4", "expected_pool": "code", "expected_tier": "strong"}
+{"prompt": "帮我写一个算法", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "这段代码可以更简洁吗", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "帮我调试这段程序", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "写一个数据处理的脚本", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "这个网页加载很慢帮我优化", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "帮我写一个登录注册的完整代码", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "这段 SQL 查询很慢怎么优化", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "帮我审查这段代码的安全问题", "model": "gpt-4", "expected_pool": "code", "expected_tier": "strong"}
+{"prompt": "写一个分布式的任务调度系统", "model": "gpt-4", "expected_pool": "code", "expected_tier": "strong"}
+{"prompt": "帮我理解这个架构设计", "model": "gpt-4", "expected_pool": "default", "expected_tier": "strong"}
+{"prompt": "这个报错 traceback 怎么看", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "帮我写一个 Dockerfile", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "这段代码需要加什么注释", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "帮我把这个功能改成异步", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "写一个缓存机制", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "这个功能怎么实现最好", "model": "gpt-4", "expected_pool": "default", "expected_tier": "medium"}
+{"prompt": "帮我写一个中间件", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "这段代码有什么设计模式", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "帮我把这个改成微服务架构", "model": "gpt-4", "expected_pool": "code", "expected_tier": "strong"}
+{"prompt": "写一个消息队列消费者", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "这段代码有内存泄漏吗", "model": "gpt-4", "expected_pool": "code", "expected_tier": "strong"}
+{"prompt": "帮我写一个分布式锁", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "这个代码怎么部署", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "帮我写一个 CI/CD 流程", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "这段代码怎么容器化", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "帮我优化数据库索引", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "写一个分页查询", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "这个接口需要加什么安全措施", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "帮我写一个权限控制系统", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "这段代码需要做单元测试吗", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "帮我把这个改成 TypeScript", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "写一个文件上传功能", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}
+{"prompt": "这个数据怎么做可视化", "model": "gpt-4", "expected_pool": "data", "expected_tier": "medium"}
+{"prompt": "帮我做一个仪表盘", "model": "gpt-4", "expected_pool": "data", "expected_tier": "medium"}
+{"prompt": "这些销售数据有什么趋势", "model": "gpt-4", "expected_pool": "data", "expected_tier": "medium"}
+{"prompt": "帮我分析用户行为", "model": "gpt-4", "expected_pool": "data", "expected_tier": "medium"}
+{"prompt": "这份数据需要做什么处理", "model": "gpt-4", "expected_pool": "data", "expected_tier": "medium"}
+{"prompt": "帮我做一个预测模型", "model": "gpt-4", "expected_pool": "data", "expected_tier": "strong"}
+{"prompt": "这些数据怎么聚类", "model": "gpt-4", "expected_pool": "data", "expected_tier": "medium"}
+{"prompt": "帮我清洗这份数据", "model": "gpt-4", "expected_pool": "data", "expected_tier": "medium"}
+{"prompt": "这个报告需要补充什么内容", "model": "gpt-4", "documents": ["report.pdf"], "expected_pool": "document", "expected_tier": "medium"}
+{"prompt": "帮我检查这份合同的漏洞", "model": "gpt-4", "documents": ["contract.pdf"], "expected_pool": "document", "expected_tier": "strong"}
+{"prompt": "从这个 PDF 提取表格", "model": "gpt-4", "documents": ["data.pdf"], "expected_pool": "document", "expected_tier": "medium"}
+{"prompt": "帮我写一份技术方案", "model": "gpt-4", "expected_pool": "default", "expected_tier": "medium"}
+{"prompt": "这份文档需要翻译成英文", "model": "gpt-4", "documents": ["doc.docx"], "expected_pool": "document", "expected_tier": "medium"}
+{"prompt": "帮我检查这个代码的单元测试覆盖率", "model": "gpt-4", "expected_pool": "code", "expected_tier": "medium"}

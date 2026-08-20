@@ -25,7 +25,7 @@ func TestMVPV01FailureReport(t *testing.T) {
 		t.Skip("set SEMANTIC_ROUTER_REPORT=1 to emit the MVP v0.1 failure report")
 	}
 
-	cases, err := loadEvalCases("routing_eval_cases.jsonl")
+	cases, err := loadRoutingEvalCases()
 	if err != nil {
 		t.Fatalf("load eval cases: %v", err)
 	}

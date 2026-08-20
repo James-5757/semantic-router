@@ -12,17 +12,17 @@ import (
 
 // ScorerComparisonResult stores the full comparison results
 type ScorerComparisonResult struct {
-	ComparisonMetadata ComparisonMeta                `json:"comparison_metadata"`
-	Metrics            ScorerMetricsSummary          `json:"metrics"`
-	ConfusionMatrices  map[string]map[string]int     `json:"confusion_matrices"`
-	ImprovedExamples   []ScorerCaseResult            `json:"improved_examples"`
-	WorsenedExamples   []ScorerCaseResult            `json:"worsened_examples"`
+	ComparisonMetadata ComparisonMeta            `json:"comparison_metadata"`
+	Metrics            ScorerMetricsSummary      `json:"metrics"`
+	ConfusionMatrices  map[string]map[string]int `json:"confusion_matrices"`
+	ImprovedExamples   []ScorerCaseResult        `json:"improved_examples"`
+	WorsenedExamples   []ScorerCaseResult        `json:"worsened_examples"`
 }
 
 // ComparisonMeta metadata
 type ComparisonMeta struct {
-	TotalPrompts    int    `json:"total_prompts"`
-	Timestamp       string `json:"timestamp"`
+	TotalPrompts int    `json:"total_prompts"`
+	Timestamp    string `json:"timestamp"`
 }
 
 // ScorerMetricsSummary metrics
@@ -30,9 +30,9 @@ type ScorerMetricsSummary struct {
 	TokenOverlap ScorerMetrics `json:"token_overlap"`
 	MockBERT     ScorerMetrics `json:"mock_bert"`
 	Comparison   struct {
-		AccuracyDelta  float64 `json:"accuracy_delta"`
-		ImprovedCount  int     `json:"improved_count"`
-		WorsenedCount  int     `json:"worsened_count"`
+		AccuracyDelta float64 `json:"accuracy_delta"`
+		ImprovedCount int     `json:"improved_count"`
+		WorsenedCount int     `json:"worsened_count"`
 	} `json:"comparison"`
 }
 
@@ -46,20 +46,20 @@ type ScorerMetrics struct {
 
 // ScorerCaseResult per-case result
 type ScorerCaseResult struct {
-	Index         int     `json:"index"`
-	Prompt        string  `json:"prompt"`
-	ExpectedPool  string  `json:"expected_pool"`
-	TokenPool     string  `json:"token_pool"`
-	TokenScore    float64 `json:"token_score"`
-	BERTPool      string  `json:"bert_pool"`
-	BERTScore     float64 `json:"bert_score"`
+	Index        int     `json:"index"`
+	Prompt       string  `json:"prompt"`
+	ExpectedPool string  `json:"expected_pool"`
+	TokenPool    string  `json:"token_pool"`
+	TokenScore   float64 `json:"token_score"`
+	BERTPool     string  `json:"bert_pool"`
+	BERTScore    float64 `json:"bert_score"`
 }
 
 // TestScorerComparison runs offline comparison between TokenOverlap and MockBERT
 // This is a shadow comparison - results are written to a file, not used for routing
 func TestScorerComparison(t *testing.T) {
 	// Load eval cases from standard path
-	cases, err := loadEvalCases("routing_eval_cases.jsonl")
+	cases, err := loadRoutingEvalCases()
 	if err != nil {
 		t.Skipf("no routing eval cases found: %v", err)
 	}
@@ -163,9 +163,9 @@ func TestScorerComparison(t *testing.T) {
 				FallbackRate:  roundFloat(float64(bertFallback)/float64(total), 4),
 			},
 			Comparison: struct {
-				AccuracyDelta  float64 `json:"accuracy_delta"`
-				ImprovedCount  int     `json:"improved_count"`
-				WorsenedCount  int     `json:"worsened_count"`
+				AccuracyDelta float64 `json:"accuracy_delta"`
+				ImprovedCount int     `json:"improved_count"`
+				WorsenedCount int     `json:"worsened_count"`
 			}{
 				AccuracyDelta: roundFloat(bertAccuracy-tokenAccuracy, 4),
 				ImprovedCount: len(improved),

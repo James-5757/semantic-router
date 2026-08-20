@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "datasets": [
+    {
+      "id": "routing_eval_v1",
+      "path": "testdata/playground/routing_eval_v1.jsonl",
+      "format": "jsonl",
+      "rows": 119,
+      "sha256": "8a3f2d86a24880a3ef32c522a96b95eddfd34207d6f6564df7d62761b13c6972",
+      "source_type": "project_maintained_development_fixture",
+      "label_status": "development_not_holdout",
+      "contains_raw_production_prompts": false,
+      "intended_uses": ["playground_batch_import", "routing_regression"],
+      "not_intended_for": ["model_training", "final_holdout_claims"]
+    }
+  ]
+}

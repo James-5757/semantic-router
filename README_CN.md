@@ -96,6 +96,8 @@ go run ./cmd/playground
 - [部署指南](docs/DEPLOYMENT_CN.md)
 - [运行与安全](docs/OPERATIONS_CN.md)
 - [测试与评估](docs/TESTING_CN.md)
+- [可复现评估结果](docs/EVALUATION_RESULTS_CN.md)
+- [公开 Playground 测试数据](testdata/README.md)
 - [HTTP API 与 TokenCloud v1.3](docs/API_CN.md)
 - [v1.3 剩余工作](docs/TOKENCLOUD_V13_REMAINING_WORK.md)
 - [文档阅读顺序与目录说明](docs/README_CN.md)

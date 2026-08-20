@@ -18,6 +18,8 @@
 - [Deployment](DEPLOYMENT.md): Ubuntu, systemd, vLLM, and internal Nginx.
 - [Operations](OPERATIONS.md): monitoring, safety, triage, and data handling.
 - [Testing](TESTING.md): focused tests, manual smoke tests, and evaluation.
+- [Reproducible results](EVALUATION_RESULTS.md): current public development baseline, command, and limits.
+- [Public test data](../testdata/README.md): Playground import, provenance, hash, and use limits.
 - [API](API.md): Selector endpoints and TokenCloud v1.3 payload contract.
 - [Remaining v1.3 work](TOKENCLOUD_V13_REMAINING_WORK.md): integration backlog.
 

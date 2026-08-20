@@ -106,6 +106,8 @@ Open `http://127.0.0.1:8081/debug/router-playground`.
 - [Deployment guide](docs/DEPLOYMENT.md)
 - [Operations and safety](docs/OPERATIONS.md)
 - [Testing and evaluation](docs/TESTING.md)
+- [Reproducible evaluation results](docs/EVALUATION_RESULTS.md)
+- [Public Playground test data](testdata/README.md)
 - [HTTP API and TokenCloud v1.3 integration](docs/API.md)
 - [Remaining v1.3 work](docs/TOKENCLOUD_V13_REMAINING_WORK.md)
 - [Documentation reading order and repository guide](docs/README.md)

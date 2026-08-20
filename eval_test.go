@@ -21,44 +21,46 @@ type TierConfusionMatrix struct {
 
 // EvalResult 评估结果
 type EvalResult struct {
-	TotalCases        int
-	PoolCorrect       int
-	TierCorrect       int
-	FallbackCorrect   int
-	FailedCases       []FailedCase
-	PoolConfusion     PoolConfusionMatrix
-	TierConfusion     TierConfusionMatrix
+	TotalCases      int
+	PoolCorrect     int
+	TierCorrect     int
+	FallbackCorrect int
+	FailedCases     []FailedCase
+	PoolConfusion   PoolConfusionMatrix
+	TierConfusion   TierConfusionMatrix
 }
 
 // FailedCase 失败案例 - 包含详细信息
 type FailedCase struct {
-	Index                int                      `json:"index"`
-	Prompt               string                   `json:"prompt"`
-	ExpectedPool         string                   `json:"expected_pool"`
-	GotPool              string                   `json:"got_pool"`
-	ExpectedTier         string                   `json:"expected_tier"`
-	GotTier              string                   `json:"got_tier"`
-	MatchedRules         []string                 `json:"matched_rules,omitempty"`
-	SemanticScores       map[string]float64       `json:"semantic_scores,omitempty"`
-	Confidence           float64                  `json:"confidence"`
-	FinalDecisionSource  string                   `json:"final_decision_source"`
-	FallbackReason       string                   `json:"fallback_reason,omitempty"`
-	SecondBestPool       string                   `json:"second_best_pool,omitempty"`
-	SecondBestScore      float64                  `json:"second_best_score"`
-	ScoreMargin          float64                  `json:"score_margin"`
-	RuleScore            float64                  `json:"rule_score"`
+	Index               int                `json:"index"`
+	Prompt              string             `json:"prompt"`
+	ExpectedPool        string             `json:"expected_pool"`
+	GotPool             string             `json:"got_pool"`
+	ExpectedTier        string             `json:"expected_tier"`
+	GotTier             string             `json:"got_tier"`
+	MatchedRules        []string           `json:"matched_rules,omitempty"`
+	SemanticScores      map[string]float64 `json:"semantic_scores,omitempty"`
+	Confidence          float64            `json:"confidence"`
+	FinalDecisionSource string             `json:"final_decision_source"`
+	FallbackReason      string             `json:"fallback_reason,omitempty"`
+	SecondBestPool      string             `json:"second_best_pool,omitempty"`
+	SecondBestScore     float64            `json:"second_best_score"`
+	ScoreMargin         float64            `json:"score_margin"`
+	RuleScore           float64            `json:"rule_score"`
 }
 
 // EvalSummary 评估汇总
 type EvalSummary struct {
-	TotalCases      int                    `json:"total_cases"`
-	PoolAccuracy    float64                `json:"pool_accuracy"`
-	TierAccuracy    float64                `json:"tier_accuracy"`
-	FallbackRate    float64                `json:"fallback_rate"`
-	FailedCases     []FailedCase           `json:"failed_cases"`
-	PoolConfusion   map[string]map[string]int `json:"pool_confusion_matrix"`
-	TierConfusion   map[string]map[string]int `json:"tier_confusion_matrix"`
+	TotalCases    int                       `json:"total_cases"`
+	PoolAccuracy  float64                   `json:"pool_accuracy"`
+	TierAccuracy  float64                   `json:"tier_accuracy"`
+	FallbackRate  float64                   `json:"fallback_rate"`
+	FailedCases   []FailedCase              `json:"failed_cases"`
+	PoolConfusion map[string]map[string]int `json:"pool_confusion_matrix"`
+	TierConfusion map[string]map[string]int `json:"tier_confusion_matrix"`
 }
+
+const publicRoutingEvalDataset = "testdata/playground/routing_eval_v1.jsonl"
 
 // loadEvalCases 加载评估样本
 func loadEvalCases(path string) ([]EvalCase, error) {
@@ -80,9 +82,18 @@ func loadEvalCases(path string) ([]EvalCase, error) {
 	return cases, nil
 }
 
+// loadRoutingEvalCases keeps older local checkouts working while making the
+// public, Playground-importable fixture the canonical evaluation input.
+func loadRoutingEvalCases() ([]EvalCase, error) {
+	if cases, err := loadEvalCases(publicRoutingEvalDataset); err == nil {
+		return cases, nil
+	}
+	return loadEvalCases("routing_eval_cases.jsonl")
+}
+
 // TestRoutingEvalCases 路由评估测试
 func TestRoutingEvalCases(t *testing.T) {
-	cases, err := loadEvalCases("routing_eval_cases.jsonl")
+	cases, err := loadRoutingEvalCases()
 	if err != nil {
 		t.Skipf("跳过评估测试：无法加载测试样本: %v", err)
 	}
@@ -104,19 +115,19 @@ func TestRoutingEvalCases(t *testing.T) {
 	// Label normalization map
 	// Short names in eval cases -> actual pool names in router
 	labelMap := map[string]string{
-		"code":               "code",
-		"data":               "data",
-		"vision":             "vision",
-		"document":           "document",
-		"image_generation":   "image_generation",
-		"default":            "default",
-		"cheap":              "cheap",
-		"general":            "default",
-		"private":            "private",
-		"code_pool":          "code",   // 反向映射
-		"data_pool":          "data",
-		"vision_pool":        "vision",
-		"document_pool":      "document",
+		"code":                  "code",
+		"data":                  "data",
+		"vision":                "vision",
+		"document":              "document",
+		"image_generation":      "image_generation",
+		"default":               "default",
+		"cheap":                 "cheap",
+		"general":               "default",
+		"private":               "private",
+		"code_pool":             "code", // 反向映射
+		"data_pool":             "data",
+		"vision_pool":           "vision",
+		"document_pool":         "document",
 		"image_generation_pool": "image_generation",
 	}
 
@@ -300,4 +311,3 @@ func boolToEmoji(b bool) string {
 func formatFloat(v float64) string {
 	return fmt.Sprintf("%.2f", v)
 }
-
