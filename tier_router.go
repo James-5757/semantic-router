@@ -242,20 +242,8 @@ func (r *MultiLayerRouter) Route(req *RouteRequest) *MultiLayerDecision {
 // text-to-image prompt from asking it to create the image itself. The former is
 // a text deliverable and must not consume an image-generation account.
 func isImagePromptAuthoringRequest(prompt string) bool {
-	lower := strings.ToLower(prompt)
-	mentionsImageGeneration := containsAny(lower, []string{
-		"文生图", "图片生成", "图像生成", "ai绘画", "ai 画图", "midjourney",
-		"stable diffusion", "dall-e", "dalle", "flux", "text to image", "text-to-image", "image generation",
-	})
-	requestsTextArtifact := containsAny(lower, []string{
-		"关键词", "关键字", "提示词", "提示语", "描述词", "标签", "tag", "tags",
-		"prompt", "prompts", "image prompt",
-	})
-	explicitImageAsset := containsAny(lower, []string{
-		"直接出图", "直接生成图片", "生成图片文件", "返回图片", "输出图片", "并生成图片", "同时生成图片",
-		"generate the image", "return an image", "create the image file",
-	})
-	return mentionsImageGeneration && requestsTextArtifact && !explicitImageAsset
+	contract := detectOutputContract(prompt)
+	return contract.Domain == "image_generation" && contract.Kind == OutputContractText
 }
 
 // isForcedRule 检查是否是强制路由规则
