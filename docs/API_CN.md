@@ -2,9 +2,10 @@
 
 [English](API.md)
 
-基础路径：`/v1/model-selector`。受保护接口使用 `X-Selector-Secret`；
+基础路径：`/v1/model-selector`。所有机器对机器接口使用 `X-Selector-Secret`；
 `X-Request-ID` 用于链路追踪。所有响应都包含 `success`、`code`、`message`
-和 `data`。
+和 `data`。`/history` 仅供内网 Nginx 后的调试页面使用，不属于对接接口，禁止直接
+暴露到不可信网络。
 
 ## 接口列表
 
@@ -15,7 +16,7 @@
 | `POST` | `/select` | Shadow 模型候选推荐。 |
 | `POST` | `/sync-models` | 同步 API Key group 模型目录。 |
 | `POST` | `/sync-api-key-group` | 同步内部 API Key ID 到 group ID 映射。 |
-| `GET` | `/history` | 最近脱敏 Shadow 历史。 |
+| `GET` | `/history` | 最近脱敏 Shadow 历史，仅内网 Nginx 使用。 |
 
 ## v1.3 `/select` 请求
 
@@ -59,7 +60,13 @@
 响应保留原始 `user_api_call`，并返回 `semantics` 与 `model_score_list`。
 每个 `model_list` 成员都有一个四位小数的分数。
 
-## 首次联调：先心跳，再 Shadow 选择
+## 首次联调：先同步，再心跳与 Shadow 选择
+
+完整的执行顺序、必填字段、错误处理和验收条件请看 [TokenCloud 对接方清单](TOKENCLOUD_PARTNER_CHECKLIST_CN.md)。
+
+使用 v1.3 group 安全路径时，先对 API Key 对应的物理 group 调用 `/sync-models`。
+之后调用 `/sync-api-key-group`，或在第一条合法 `/select` 中同时传入 `api_key_id`
+和 `group_id`。只要 `/select` 带有非零 `group_id`，该 group 未同步就会被拒绝。
 
 以下命令在 Selector 主机本机执行。`MODEL_SELECTOR_SECRET` 只应来自环境文件或
 Secret 管理，不要把真实值写进脚本或提交到仓库。
@@ -83,7 +90,8 @@ curl -fsS -X POST http://127.0.0.1:18080/v1/model-selector/select \
 
 验收时确认：HTTP `200`、输入的每个模型恰好出现一次、分数保留四位小数、
 `shadow_only=true`、`upstream_called=false`。真实 TokenCloud 接入时再补充同 group
-的 `models` 与 `accounts`，以启用账号可用性和动态运行时排序。
+的 `models` 与 `accounts`，以启用账号可用性和动态运行时排序。按分数降序的
+`model_score_list` 第一项只是 Shadow 推荐，真实上游仍由网关原 Scheduler 决定。
 
 ## TokenCloud 发送端规则
 

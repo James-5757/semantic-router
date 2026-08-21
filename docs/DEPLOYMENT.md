@@ -4,6 +4,9 @@ This guide deploys the selector, optional Official vLLM score-only service, and
 Playground on Ubuntu 22.04. It assumes an internal network and keeps every
 component in shadow-only mode.
 
+For the concrete internal Nginx demo layout and service addresses, see the
+[Ubuntu deployment assets](../deploy/ubuntu/README.md).
+
 ## Prerequisites
 
 - Ubuntu 22.04, Go 1.21+, Docker Engine, Nginx (optional but recommended).

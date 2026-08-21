@@ -5,6 +5,9 @@
 本指南描述如何在 Ubuntu 22.04 部署 Selector、可选 Official vLLM score-only
 服务和 Playground。所有组件默认保持 Shadow-only。
 
+内网 Nginx 演示布局与具体服务地址见
+[Ubuntu 部署文件说明](../deploy/ubuntu/README_CN.md)。
+
 ## 前置条件
 
 - Ubuntu 22.04、Go 1.21+、Docker Engine、Nginx（推荐）。

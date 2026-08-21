@@ -2,8 +2,10 @@
 
 Base path: `/v1/model-selector`.
 
-All protected calls use `X-Selector-Secret`; use `X-Request-ID` for tracing.
-Every response has `success`, `code`, `message`, and `data`.
+All machine-to-machine endpoints use `X-Selector-Secret`; use `X-Request-ID`
+for tracing. Every response has `success`, `code`, `message`, and `data`.
+`/history` is an internal Nginx-only debugging route and is not an integration
+endpoint; never expose it directly to an untrusted network.
 
 ## Endpoints
 
@@ -14,7 +16,7 @@ Every response has `success`, `code`, `message`, and `data`.
 | `POST` | `/select` | Shadow model recommendation. |
 | `POST` | `/sync-models` | Persist an API-key group's model catalog. |
 | `POST` | `/sync-api-key-group` | Persist an internal API-key-ID to group-ID binding. |
-| `GET` | `/history` | Recent redacted shadow records. |
+| `GET` | `/history` | Recent redacted Shadow records; internal Nginx-only. |
 
 ## v1.3 select request
 
@@ -73,7 +75,15 @@ one four-decimal score for every member of `model_list`.
 }
 ```
 
-## First integration: heartbeat, then Shadow selection
+## First integration: sync, heartbeat, then Shadow selection
+
+For the complete executable order, required fields, expected errors, and
+acceptance checklist, use the [TokenCloud partner integration checklist](TOKENCLOUD_PARTNER_CHECKLIST.md).
+
+For the v1.3 group-safe path, first call `/sync-models` for the API key's
+physical group. Then either call `/sync-api-key-group`, or include both
+`api_key_id` and `group_id` in the first valid `/select`. A `/select` request
+with a non-zero `group_id` is rejected until that group has been synchronized.
 
 Run these commands locally on the Selector host. `MODEL_SELECTOR_SECRET` must
 come from an environment file or secret manager; never place a real value in a
@@ -100,7 +110,9 @@ curl -fsS -X POST http://127.0.0.1:18080/v1/model-selector/select \
 For acceptance, confirm HTTP `200`, exactly one score per input model, scores
 rounded to four decimals, `shadow_only=true`, and `upstream_called=false`. Add
 same-group `models` and `accounts` in the real TokenCloud integration to enable
-account availability filtering and dynamic runtime ranking.
+account availability filtering and dynamic runtime ranking. The first item in
+the descending `model_score_list` is the Shadow recommendation only; the
+gateway's existing Scheduler still makes the real upstream choice.
 
 ## TokenCloud sender rules
 

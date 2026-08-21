@@ -9,6 +9,7 @@
 | First local run | Root `README.md` | Start the Selector, verify `/heartbeat`, then start Playground. |
 | Ubuntu private-network deployment | [Deployment](DEPLOYMENT.md) | Verify service, logs, and rollback with [Operations](OPERATIONS.md). |
 | TokenCloud integration | [API](API.md) | Return candidate scores from Shadow `/select` without changing gateway scheduling. |
+| TokenCloud implementation | [Partner checklist](TOKENCLOUD_PARTNER_CHECKLIST.md) | Sync a group, bind an API key, then validate Shadow `/select`. |
 | Routing and ranking explanation | [Architecture](ARCHITECTURE.md) | Inspect Pool, Tier, candidates, and reasons in Playground. |
 | Development or calibration | [Testing](TESTING.md) | Run focused checks and record holdout movement without deleting frozen fixtures. |
 
@@ -23,6 +24,7 @@
 - [Public test data](../testdata/README.md): Playground import, provenance, hash, and use limits.
 - [External Playground replay sets](PLAYGROUND_EXTERNAL_DATASETS.md): local-only third-party replay data and reporting boundaries.
 - [API](API.md): Selector endpoints and TokenCloud v1.3 payload contract.
+- [TokenCloud partner checklist](TOKENCLOUD_PARTNER_CHECKLIST.md): the short, executable integration and acceptance path.
 - [Remaining v1.3 work](TOKENCLOUD_V13_REMAINING_WORK.md): integration backlog.
 
 ## Repository guide

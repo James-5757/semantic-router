@@ -9,6 +9,7 @@
 | 第一次本地运行 | 根目录 `README_CN.md` | 启动 Selector、检查 `/heartbeat`、再启动 Playground。 |
 | Ubuntu 内网部署 | [部署指南](DEPLOYMENT_CN.md) | 按[运行与安全](OPERATIONS_CN.md)验证服务、日志和回滚。 |
 | TokenCloud 接入 | [HTTP API](API_CN.md) | 先用 Shadow `/select` 回传候选分数，不改变网关主调度。 |
+| TokenCloud 开发对接 | [对接方清单](TOKENCLOUD_PARTNER_CHECKLIST_CN.md) | 同步 group、绑定 API Key，再验证 Shadow `/select`。 |
 | 理解路由和排序 | [架构设计](ARCHITECTURE_CN.md) | 查看 Playground 的 Pool、Tier、候选模型和原因。 |
 | 开发或校准 | [测试与评估](TESTING_CN.md) | 运行聚焦测试，记录 holdout 变化，不删除冻结 fixture。 |
 
@@ -23,6 +24,7 @@
 - [公开测试数据](../testdata/README.md)：Playground 导入、来源、哈希与使用限制。
 - [外部 Playground 回放集](PLAYGROUND_EXTERNAL_DATASETS_CN.md)：本地第三方回放数据及其报告边界。
 - [HTTP API 与 TokenCloud v1.3](API_CN.md)：接口与真实账号快照协议。
+- [TokenCloud 对接方清单](TOKENCLOUD_PARTNER_CHECKLIST_CN.md)：可执行的联调和验收步骤。
 - [v1.3 剩余工作](TOKENCLOUD_V13_REMAINING_WORK.md)：对接 backlog。
 - [TokenCloud v1.3 剩余工作（中文）](TOKENCLOUD_V13_REMAINING_WORK_CN.md)：真实转发接入与验收条件。
 - [模型画像与 Hybrid V2（中文）](MODEL_PROFILE_AND_HYBRID_V2_CN.md)：画像、候选排序与 tier 旁路。

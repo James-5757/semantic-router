@@ -87,7 +87,7 @@ Open `http://127.0.0.1:8081/debug/router-playground`.
 | --- | --- |
 | Try routing and model recommendations locally | Follow the quick start above to run the Selector and Playground. |
 | Deploy to an Ubuntu private network | Read [Deployment](docs/DEPLOYMENT.md), then perform the [Operations](docs/OPERATIONS.md) checks. |
-| Connect TokenCloud or a gateway | Read the [API guide](docs/API.md); call `/heartbeat` first, then call `/select` in Shadow mode. |
+| Connect TokenCloud or a gateway | Follow the [partner integration checklist](docs/TOKENCLOUD_PARTNER_CHECKLIST.md), then use the [API guide](docs/API.md). |
 | Understand a model recommendation | Read [Architecture and scoring](docs/ARCHITECTURE.md), then inspect candidates, scores, and reasons in Playground. |
 | Find the relevant source file | Use the [code map](docs/CODEMAP.md) before changing a router, selector, or integration component. |
 | Change routing or ranking behavior | Run the focused checks in [Testing](docs/TESTING.md); do not edit frozen holdout fixtures. |
@@ -113,6 +113,7 @@ Open `http://127.0.0.1:8081/debug/router-playground`.
 - [Reproducible evaluation results](docs/EVALUATION_RESULTS.md)
 - [Public Playground test data](testdata/README.md)
 - [HTTP API and TokenCloud v1.3 integration](docs/API.md)
+- [TokenCloud partner integration checklist](docs/TOKENCLOUD_PARTNER_CHECKLIST.md)
 - [Remaining v1.3 work](docs/TOKENCLOUD_V13_REMAINING_WORK.md)
 - [Documentation reading order and repository guide](docs/README.md)
 

@@ -1,5 +1,7 @@
 # Ubuntu Internal Demo Deployment
 
+[中文](README_CN.md)
+
 This directory deploys the Playground as an internal-only demo and keeps the
 selector and vLLM score service on loopback addresses. It does not enable
 takeover or invoke upstream models.

@@ -78,7 +78,7 @@ go run ./cmd/playground
 | --- | --- |
 | 本地体验路由和模型推荐 | 按上面的快速启动运行 Selector 与 Playground。 |
 | 部署到 Ubuntu 内网 | 阅读[部署指南](docs/DEPLOYMENT_CN.md)，再执行[运行检查](docs/OPERATIONS_CN.md)。 |
-| 接入 TokenCloud / 网关 | 阅读[接口文档](docs/API_CN.md)，先调用 `/heartbeat`，再以 Shadow 方式调用 `/select`。 |
+| 接入 TokenCloud / 网关 | 按[对接方清单](docs/TOKENCLOUD_PARTNER_CHECKLIST_CN.md)完成联调，再查看[接口文档](docs/API_CN.md)。 |
 | 理解为什么推荐某个模型 | 阅读[架构与评分](docs/ARCHITECTURE_CN.md)，并在 Playground 查看候选、分数与原因。 |
 | 找到需要修改的代码 | 修改 Router、Selector 或集成模块前，先查看[代码导航](docs/CODEMAP_CN.md)。 |
 | 修改路由或候选策略 | 先运行[测试与评估](docs/TESTING_CN.md)中的聚焦测试；不要修改冻结 holdout fixture。 |
@@ -103,6 +103,7 @@ go run ./cmd/playground
 - [可复现评估结果](docs/EVALUATION_RESULTS_CN.md)
 - [公开 Playground 测试数据](testdata/README.md)
 - [HTTP API 与 TokenCloud v1.3](docs/API_CN.md)
+- [TokenCloud 对接方清单](docs/TOKENCLOUD_PARTNER_CHECKLIST_CN.md)
 - [TokenCloud v1.3 接入待办](docs/TOKENCLOUD_V13_REMAINING_WORK_CN.md)
 - [模型画像与 Hybrid V2](docs/MODEL_PROFILE_AND_HYBRID_V2_CN.md)
 - [文档阅读顺序与目录说明](docs/README_CN.md)
