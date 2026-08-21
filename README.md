@@ -48,8 +48,8 @@ Prerequisites: Go 1.21 or later. Docker is optional and is only needed for the
 Official vLLM score-only service.
 
 ```bash
-# After cloning into semantic-router, the repository root is the Go module root.
-cd semantic_router
+git clone https://github.com/James-5757/semantic-router.git
+cd semantic-router
 go test -run 'TestModelSelector' -v
 
 # Start the selector on a local-only port.
@@ -87,6 +87,7 @@ Open `http://127.0.0.1:8081/debug/router-playground`.
 | Deploy to an Ubuntu private network | Read [Deployment](docs/DEPLOYMENT.md), then perform the [Operations](docs/OPERATIONS.md) checks. |
 | Connect TokenCloud or a gateway | Read the [API guide](docs/API.md); call `/heartbeat` first, then call `/select` in Shadow mode. |
 | Understand a model recommendation | Read [Architecture and scoring](docs/ARCHITECTURE.md), then inspect candidates, scores, and reasons in Playground. |
+| Find the relevant source file | Use the [code map](docs/CODEMAP.md) before changing a router, selector, or integration component. |
 | Change routing or ranking behavior | Run the focused checks in [Testing](docs/TESTING.md); do not edit frozen holdout fixtures. |
 
 ### Minimum request flow
@@ -103,6 +104,7 @@ Open `http://127.0.0.1:8081/debug/router-playground`.
 ## Documentation
 
 - [Architecture and scoring](docs/ARCHITECTURE.md)
+- [Code map](docs/CODEMAP.md)
 - [Deployment guide](docs/DEPLOYMENT.md)
 - [Operations and safety](docs/OPERATIONS.md)
 - [Testing and evaluation](docs/TESTING.md)

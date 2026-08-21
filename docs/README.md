@@ -15,6 +15,7 @@
 ## Maintained documentation
 
 - [Architecture](ARCHITECTURE.md): components, boundaries, and scoring.
+- [Code map](CODEMAP.md): where to find routing, selection, Shadow, and integration code.
 - [Deployment](DEPLOYMENT.md): Ubuntu, systemd, vLLM, and internal Nginx.
 - [Operations](OPERATIONS.md): monitoring, safety, triage, and data handling.
 - [Testing](TESTING.md): focused tests, manual smoke tests, and evaluation.
@@ -29,6 +30,7 @@
 | --- | --- |
 | Root `README.md` | Project entry point, local quick start, and safety boundary. |
 | `docs/` | Maintained material for users, deployers, and integrators. |
+| `docs/CODEMAP.md` | Source-level guide for contributors; use this before navigating the flat Go package. |
 | `cmd/server/` | Selector HTTP service entry point. |
 | `cmd/playground/` | Internal debugging UI and static assets. |
 | `deploy/ubuntu/` | systemd, Nginx, and environment examples. |

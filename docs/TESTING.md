@@ -7,7 +7,7 @@ redaction, API-key group isolation, v1.3 account eligibility, dynamic load,
 quota handling, cost/TTFT ranking and conservative Official Pool handling.
 
 ```bash
-cd semantic_router
+# Run from the repository root.
 go test -run 'TestModelSelector|TestOfficialPoolShadow|TestSelectorDocumentRunbookGuard' -count=1 -v
 ```
 

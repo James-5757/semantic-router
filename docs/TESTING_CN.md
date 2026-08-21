@@ -8,7 +8,7 @@ Selector 的聚焦测试覆盖：HTTP 兼容、认证、历史脱敏、API Key g
 v1.3 账号可用性、动态负载、配额、成本/TTFT 以及 Official Pool 保守覆盖。
 
 ```bash
-cd semantic_router
+# 在仓库根目录执行。
 go test -run 'TestModelSelector|TestOfficialPoolShadow|TestSelectorDocumentRunbookGuard' -count=1 -v
 ```
 

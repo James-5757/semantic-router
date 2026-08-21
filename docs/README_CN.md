@@ -15,6 +15,7 @@
 ## 维护中的文档
 
 - [架构设计](ARCHITECTURE_CN.md)：组件职责、边界和评分。
+- [代码导航](CODEMAP_CN.md)：Router、模型选择、Shadow 与集成代码的定位说明。
 - [部署指南](DEPLOYMENT_CN.md)：Ubuntu、systemd、vLLM 与内网 Nginx。
 - [运行与安全](OPERATIONS_CN.md)：监控、安全、排障和数据处理。
 - [测试与评估](TESTING_CN.md)：聚焦测试、手工验证和评估指标。
@@ -34,6 +35,7 @@
 | --- | --- |
 | 根目录 `README_CN.md` | 项目入口、快速运行和安全边界。 |
 | `docs/` | 面向使用者、部署者和集成方的维护文档。 |
+| `docs/CODEMAP_CN.md` | 面向贡献者的源码导航；阅读后再进入根目录的 Go 文件。 |
 | `cmd/server/` | Selector HTTP 服务入口。 |
 | `cmd/playground/` | 内网调试页面及其静态资源。 |
 | `deploy/ubuntu/` | systemd、Nginx 和环境变量示例。 |

@@ -40,8 +40,8 @@ Pool 和 Tier，只在当前 API Key 所属模型组中对候选模型打分并�
 前置条件：Go 1.21+。Docker 仅在启用 Official vLLM score-only 时需要。
 
 ```bash
-# 已 git clone 到 semantic-router 后，仓库根目录就是 Go module 根目录。
-cd semantic_router
+git clone https://github.com/James-5757/semantic-router.git
+cd semantic-router
 go test -run 'TestModelSelector' -v
 
 export SEMANTIC_ROUTER_HTTP_PORT=18080
@@ -78,6 +78,7 @@ go run ./cmd/playground
 | 部署到 Ubuntu 内网 | 阅读[部署指南](docs/DEPLOYMENT_CN.md)，再执行[运行检查](docs/OPERATIONS_CN.md)。 |
 | 接入 TokenCloud / 网关 | 阅读[接口文档](docs/API_CN.md)，先调用 `/heartbeat`，再以 Shadow 方式调用 `/select`。 |
 | 理解为什么推荐某个模型 | 阅读[架构与评分](docs/ARCHITECTURE_CN.md)，并在 Playground 查看候选、分数与原因。 |
+| 找到需要修改的代码 | 修改 Router、Selector 或集成模块前，先查看[代码导航](docs/CODEMAP_CN.md)。 |
 | 修改路由或候选策略 | 先运行[测试与评估](docs/TESTING_CN.md)中的聚焦测试；不要修改冻结 holdout fixture。 |
 
 ### 最小使用流程
@@ -93,6 +94,7 @@ go run ./cmd/playground
 ## 文档
 
 - [架构与评分](docs/ARCHITECTURE_CN.md)
+- [代码导航](docs/CODEMAP_CN.md)
 - [部署指南](docs/DEPLOYMENT_CN.md)
 - [运行与安全](docs/OPERATIONS_CN.md)
 - [测试与评估](docs/TESTING_CN.md)
