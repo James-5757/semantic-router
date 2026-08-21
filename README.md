@@ -1,5 +1,7 @@
 # Semantic Router
 
+[![CI](https://github.com/James-5757/semantic-router/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/James-5757/semantic-router/actions/workflows/ci.yml)
+
 Semantic Router is a shadow-first model-selection service for LLM gateways. It
 reads a user's request, identifies the task pool and required tier, ranks only
 the models allowed by the current API-key group, and returns a scored candidate
@@ -133,5 +135,4 @@ shadow forwarding path before real production account telemetry is available.
 
 ## License
 
-No open-source license has been selected yet. Do not reuse or redistribute the
-code until the project owner adds a license to this repository.
+This project is released under the [MIT License](LICENSE).

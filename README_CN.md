@@ -1,5 +1,7 @@
 # Semantic Router
 
+[![CI](https://github.com/James-5757/semantic-router/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/James-5757/semantic-router/actions/workflows/ci.yml)
+
 面向 LLM 网关的 Shadow-first 智能模型选择服务。它读取用户请求，识别任务
 Pool 和 Tier，只在当前 API Key 所属模型组中对候选模型打分并给出推荐。系统
 用于逐步改善路由决策，在评估阶段不会替换既有网关调度器。
@@ -122,4 +124,4 @@ Selector 和 Playground 已在 Ubuntu 内网以 Shadow-only 模式部署。Selec
 
 ## 许可证
 
-当前尚未选择开源许可证。在项目所有者为该仓库添加许可证前，请勿复用或再分发代码。
+本项目使用 [MIT License](LICENSE)。

@@ -1,0 +1,34 @@
+name: Public Regression Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    name: Go regression checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.21.x"
+          cache: true
+
+      - name: Run reproducible routing evaluation
+        run: go test -run '^TestRoutingEvalCases$' -count=1 -v .
+
+      - name: Run selector and Shadow safety checks
+        run: >-
+          go test -run
+          '^(TestModelSelector.*|TestModelCandidateSelector.*|TestOfficial.*|TestSelectorDocumentRunbookGuard.*|TestRealSchedulerDryRun.*|TestShadowMode.*|TestTokenCloudShadow.*)$'
+          -count=1 -v .

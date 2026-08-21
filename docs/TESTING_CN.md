@@ -31,6 +31,12 @@ go test ./...
 不要为了让 CI 表面通过而重写或删除 fixture。Pool 校准应通过版本化 holdout
 报告跟踪；Selector 运行时变更至少由上面的聚焦测试覆盖。
 
+## GitHub Actions CI
+
+公开 CI 会在每次推送到 `main` 或提交 PR 时运行可复现开发集评估、候选模型选择和
+Shadow 安全测试。它不会启动 Docker、vLLM，也不会调用真实上游。冻结 Pool 回归
+基线会单独记录，不能为了让状态徽章显示绿色而被静默或删除。
+
 ## 手工 Selector smoke test
 
 1. 发送 gzip/Base64 的 `user_api_call` 与 group 范围的 `model_list`。

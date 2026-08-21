@@ -32,6 +32,14 @@ delete those fixtures to make CI appear green. Track Pool calibration changes
 against a versioned holdout report and keep selector-runtime changes covered by
 the focused suites above.
 
+## GitHub Actions CI
+
+The public CI workflow runs the reproducible development evaluation plus
+candidate-selection and Shadow safety tests on every push and pull request to
+`main`. It deliberately does not run Docker, vLLM, or real upstream calls.
+The frozen Pool regression baseline is documented separately rather than being
+silenced merely to make a status badge green.
+
 ## Manual selector smoke test
 
 1. Send a gzip/Base64 `user_api_call` with a group-scoped `model_list`.
