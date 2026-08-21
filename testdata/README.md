@@ -42,3 +42,11 @@ go test -run '^TestRoutingEvalCases$' -count=1 -v
 See `docs/EVALUATION_RESULTS.md` and `docs/EVALUATION_RESULTS_CN.md` for the
 command, date, result, and interpretation. Do not remove failing cases merely
 to improve a displayed percentage.
+
+## External Playground replay sets
+
+The project also uses larger third-party prompt replay sets locally in
+Playground. They are described in [External Playground replay sets](../docs/PLAYGROUND_EXTERNAL_DATASETS.md).
+They are intentionally not bundled here: they are not manually labeled routing
+ground truth, have mixed upstream licenses, and may contain content that is not
+appropriate as a default public fixture.

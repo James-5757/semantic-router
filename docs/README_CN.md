@@ -21,6 +21,7 @@
 - [测试与评估](TESTING_CN.md)：聚焦测试、手工验证和评估指标。
 - [可复现评估结果](EVALUATION_RESULTS_CN.md)：公开开发集的当前基线、命令和解读边界。
 - [公开测试数据](../testdata/README.md)：Playground 导入、来源、哈希与使用限制。
+- [外部 Playground 回放集](PLAYGROUND_EXTERNAL_DATASETS_CN.md)：本地第三方回放数据及其报告边界。
 - [HTTP API 与 TokenCloud v1.3](API_CN.md)：接口与真实账号快照协议。
 - [v1.3 剩余工作](TOKENCLOUD_V13_REMAINING_WORK.md)：对接 backlog。
 - [TokenCloud v1.3 剩余工作（中文）](TOKENCLOUD_V13_REMAINING_WORK_CN.md)：真实转发接入与验收条件。
